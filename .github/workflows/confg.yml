@@ -1,0 +1,103 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    defaults:
+      run:
+        shell: bash
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:jammy-20230126
+      env:
+        DEBIAN_FRONTEND: noninteractive
+        INIT_ENV: "/home/jpo-cvdp/.base-image/init-env.sh"
+        SONAR_SCANNER_VERSION: "4.6.2.2472"
+        TERM: xterm
+      options: "--user root"
+    steps:
+    # Bionic's git version is not sufficient for actions/checkout 0 fetch-depth,
+    # remove this step after rebasing jpo-cvdp to newer Ubuntu release
+    - name: Install newer git for checkout
+      run: |
+        apt-get update
+        apt-get install -y software-properties-common
+        add-apt-repository -u ppa:git-core/ppa
+        apt-get install -y git
+    - name: Checkout ${{ github.event.repository.name }}
+      uses: actions/checkout@v3.3.0
+      with:
+        path: ${{ github.event.repository.name }}
+        fetch-depth: 0
+    - name: Move source code
+      run: mv $GITHUB_WORKSPACE/${{ github.event.repository.name }} /home/jpo-cvdp
+    - name: Install dependencies
+      run: |
+        mkdir /home/jpo-cvdp/.base-image
+        docker version
+        docker-compose version
+        sudo apt-get update
+        sudo apt install apt-transport-https ca-certificates curl software-properties-common
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu `lsb_release -cs` test"
+        sudo apt update
+        sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+        sudo rm /usr/local/bin/docker-compose 
+        curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        chmod +x docker-compose
+        sudo mv docker-compose /usr/local/bin
+    - name: Install librdkafka
+      run: |
+        cd /home/jpo-cvdp/ext/
+        git clone --depth 1 https://github.com/confluentinc/librdkafka.git /home/jpo-cvdp/ext/librdkafka
+        cd /home/jpo-cvdp/ext/librdkafka/
+        cmake -H. -B_cmake_build
+        cmake --build _cmake_build
+        cmake --build _cmake_build --target install
+    - name: Install rapidjson
+      run: |
+        cd /home/jpo-cvdp/ext/
+        git clone --depth 1 https://github.com/Tencent/rapidjson /home/jpo-cvdp/ext/rapidjson
+        mkdir -p /home/jpo-cvdp/ext/rapidjson/build
+        cd /home/jpo-cvdp/ext/rapidjson/build
+        cmake ..
+        make -j
+        make install
+    - name: Install Sonar
+      run: |
+        SONAR_DIR=/opt/sonarqube
+        mkdir $SONAR_DIR
+        curl -o $SONAR_DIR/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
+        curl -o $SONAR_DIR/build-wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+        curl -sL https://deb.nodesource.com/setup_16.x |bash -
+        apt-get install -y nodejs unzip
+        cd $SONAR_DIR
+        for ZIP in *.zip; do
+          unzip "$ZIP" -d .
+          rm "$ZIP"
+        done
+        mv $(ls $SONAR_DIR |grep "sonar-scanner-") $SONAR_DIR/sonar-scanner/
+        mv $(ls $SONAR_DIR |grep "build-wrapper-") $SONAR_DIR/build-wrapper/
+        echo $SONAR_DIR/sonar-scanner/bin >> $GITHUB_PATH
+        echo $SONAR_DIR/build-wrapper >> $GITHUB_PATH
+    - name: Build
+      run: |
+        source ${INIT_ENV}
+        cd /home/jpo-cvdp/
+        build-wrapper-linux-x86-64 --out-dir /home/jpo-cvdp/bw-output ./build.sh
+    - name: Tests
+      run: |
+        cd /home/jpo-cvdp/
+        ldconfig
+        ./coverage.sh
+    - name: Archive test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: Test Results
+        path: /home/jpo-cvdp/test_results
+    - name: Run SonarScanner
+      uses: usdot-fhwa-stol/actions/sonar-scanner@main
+      with:
+        sonar-token: ${{ secrets.SONAR_TOKEN }}
+        working-dir: /home/jpo-cvdp
