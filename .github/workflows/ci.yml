@@ -20,10 +20,10 @@ jobs:
      - name: Build cvdp c++ source code
        uses: nicledomaS/cmake_build_action@v1.4
        with:
-         submodule_update: ON
+         submodule_update: OFF
          run_tests: ON
          unit_test_build: -Dtest=ON
-         config: Debug
+         config: RELEASE
      - name: Archive artifacts results
        uses: actions/upload-artifact@v3
        with:
