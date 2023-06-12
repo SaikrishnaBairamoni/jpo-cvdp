@@ -8,15 +8,15 @@ jobs:
    runs-on: ubuntu-latest
    steps:
      - name: Checkout ${{ github.event.repository.name }}
-       uses: actions/checkout@v3    
-     - name: Set up Maven
-       uses: stCarolas/setup-maven@v4.5
-       with:
-        maven-version: 3.8.2          
-     - uses: actions/setup-java@v3
-       with:
-         java-version: '11'
-         distribution: 'temurin'               
+       uses: actions/checkout@v3           
+     - name: Install deps
+       run: | 
+         git clone https://github.com/edenhill/librdkafka.git
+         cd librdkafka
+         ./configure
+         make
+         sudo make install
+         cd ..  
      - name: Build cvdp c++ source code
        uses: nicledomaS/cmake_build_action@v1.4
        with:
@@ -26,23 +26,19 @@ jobs:
      - name: Archive artifacts results
        uses: actions/upload-artifact@v3
        with:
-         name: artifact_${{ matrix.os }}_${{ matrix.configs }}.tar.gz
+         name: cvdp
          path: build/*.tar.gz 
          if-no-files-found: error
 
   cvdp_python:
-    runs-on: '${{ matrix.os }}'
-    strategy:
-     matrix:
-      os:
-       - ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout ${{ github.event.repository.name }}
         uses: actions/checkout@v3
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get -y install python3-coverage python3-pip python3-pytest
+          apt-get -y install python3-coverage python3-pip python3-pytest 
       - name: Run tests
         run: |
           export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages
