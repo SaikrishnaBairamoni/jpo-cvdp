@@ -17,39 +17,41 @@ jobs:
           curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
           sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu `lsb_release -cs` test"
           sudo apt update
-      - run: 'sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce'
-      - run: sudo rm /usr/local/bin/docker-compose
-      - run: >-
-          curl -L
-          https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
-          -s`-`uname -m` > docker-compose
-      - run: chmod +x docker-compose
-      - run: sudo mv docker-compose /usr/local/bin
-      - run: 'sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test'
-      - run: sudo apt-get update -qq
-      - run: sudo apt-get install -qq g++-4.9
-      - run: export CXX="g++-4.9"
-      - run: 'git clone https://github.com/edenhill/librdkafka.git'
-      - run: cd librdkafka
-      - run: ./configure
-      - run: make
-      - run: sudo make install
-      - run: cd ..
-      - run: mkdir /tmp/build
-      - run: cd /tmp/build
-      - run: cmake $$GITHUB_WORKSPACE
-      - run: export LD_LIBRARY_PATH=/usr/local/lib
-      - run: >-
+          sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+          sudo rm /usr/local/bin/docker-compose 
+          curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+          chmod +x docker-compose
+          sudo mv docker-compose /usr/local/bin
+      - name: install g++
+        run: |
+         sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+         sudo apt-get update -qq
+         sudo apt-get install -qq g++-4.9
+         export CXX="g++-4.9"
+      - name: install librdkafka
+        run: |
+          git clone https://github.com/edenhill/librdkafka.git
+          cd librdkafka
+          ./configure
+          make
+          sudo make install
+          cd ..
+          mkdir /tmp/build
+          cd /tmp/build
+          cmake $$GITHUB_WORKSPACE
+          export LD_LIBRARY_PATH=/usr/local/lib
+      - name: build
+        run: 
           build-wrapper-linux-x86-64 --out-dir $$GITHUB_WORKSPACE/bw-output make
           clean all
-      - run: ./ppm_tests
-      - run: cd $$GITHUB_WORKSPACE
-      - run: mkdir coverage
-      - run: cd coverage
-      - run: >-
+          ./ppm_tests
+          cd $$GITHUB_WORKSPACE
+          mkdir coverage
+          cd coverage
+      - run:
           gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory
           /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/
-      - run: >-
+      - run: 
           gcov $$GITHUB_WORKSPACE/src/*.cpp --object-directory
           /tmp/build/CMakeFiles/ppm_tests.dir/src/
       - run: cd $$GITHUB_WORKSPACE
