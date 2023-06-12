@@ -12,11 +12,6 @@ jobs:
         os:
           - ubuntu-18.04
     steps:
-      - name: Cache multiple paths
-        uses: actions/cache@v2
-        with:
-          path: $GITHUB_WORKSPACE/.sonar/cache
-          key: '${{ runner.os }}-${{ hashFiles("TODO") }}'
       - uses: actions/checkout@v2
       - run: docker version
       - run: docker-compose version
