@@ -8,9 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker version
-      - run: docker-compose version
-      - run: sudo apt-get update
+      - name: install deps
+        run: |
+          docker version
+          docker-compose version
+          sudo apt-get update
+          sudo apt install apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu `lsb_release -cs` test"
+          sudo apt update
       - run: 'sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce'
       - run: sudo rm /usr/local/bin/docker-compose
       - run: >-
