@@ -23,6 +23,7 @@ jobs:
          submodule_update: ON
          run_tests: ON
          unit_test_build: -Dtest=ON
+         config: Debug
      - name: Archive artifacts results
        uses: actions/upload-artifact@v3
        with:
@@ -37,8 +38,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Install dependencies
         run: |
-          apt-get update
-          apt-get -y install python3-coverage python3-pip python3-pytest 
+          sudo apt-get update
+          sudo apt-get -y install python3-coverage python3-pip python3-pytest 
       - name: Run tests
         run: |
           export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages
