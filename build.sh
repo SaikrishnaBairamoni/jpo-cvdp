@@ -26,7 +26,6 @@ MAKE_INSTALL_DIRS=(
     "./"
 )
 
-)
 
 for DIR in "${MAKE_INSTALL_DIRS[@]}" "${MAKE_ONLY_DIRS[@]}"; do
     mkdir /home/jpo-cvdp/"$DIR"/build
