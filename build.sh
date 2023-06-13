@@ -21,7 +21,6 @@ COVERAGE_FLAGS="-g --coverage -fprofile-arcs -ftest-coverage"
 
 # make install for these subdirectories
 MAKE_INSTALL_DIRS=(
-    "cv-lib"
     "kafka_test"
     "./"
 )
