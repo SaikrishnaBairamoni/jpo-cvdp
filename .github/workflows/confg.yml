@@ -87,6 +87,8 @@ jobs:
         source ${INIT_ENV}
         chmod   755  -R /home/jpo-cvdp/
         cd /home/jpo-cvdp/
+        REDACTION_PROPERTIES_PATH = config/fieldsToRedact.txt
+        echo "REDACTION_PROPERTIES_PATH=$REDACTION_PROPERTIES_PATH" >> $REDACTION_PROPERTIES_PATH
         build-wrapper-linux-x86-64 --out-dir /home/jpo-cvdp/bw-output ./build_and_run_unit_tests.sh
     - name: Tests
       run: |
