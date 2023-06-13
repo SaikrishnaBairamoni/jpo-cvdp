@@ -36,7 +36,6 @@ jobs:
       run: |
         mkdir /home/jpo-cvdp/.base-image
         apt-get -y update && apt-get -y install sudo 
-        sudo apt-get -y install ecal
         sudo apt-get -y install build-essential
         sudo apt -y install cmake g++ libprotobuf-dev protobuf-compiler
         sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
