@@ -5,7 +5,15 @@ on:
     
 jobs:
   cvdp:
-   runs-on: ubuntu:jammy-20230126
+   runs-on: ubuntu-latest
+   container:
+    image: ubuntu:jammy-20230126
+    env:
+      DEBIAN_FRONTEND: noninteractive
+      INIT_ENV: "/home/jpo-cvdp/.base-image/init-env.sh"
+      SONAR_SCANNER_VERSION: "4.6.2.2472"
+      TERM: xterm
+    options: "--user root"
    steps:
      - name: Checkout ${{ github.event.repository.name }}
        uses: actions/checkout@v3      
