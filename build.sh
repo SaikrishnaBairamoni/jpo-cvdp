@@ -24,8 +24,6 @@ MAKE_INSTALL_DIRS=(
     "cv-lib"
     "kafka_test"
     "./"
-
-"
 )
 
 )
