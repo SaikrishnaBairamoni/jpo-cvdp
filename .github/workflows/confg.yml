@@ -46,6 +46,7 @@ jobs:
         sudo mv docker-compose /usr/local/bin
     - name: Install librdkafka
       run: |
+        mkdir -p /home/jpo-cvdp/ext
         cd /home/jpo-cvdp/ext/
         git clone --depth 1 https://github.com/confluentinc/librdkafka.git /home/jpo-cvdp/ext/librdkafka
         cd /home/jpo-cvdp/ext/librdkafka/
