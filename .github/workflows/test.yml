@@ -1,7 +1,6 @@
 name: cvdp
 on: 
-  pull_request:
-  push:
+ workflow_dispatch:
     
 jobs:
   cvdp:
