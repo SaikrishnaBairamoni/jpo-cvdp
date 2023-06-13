@@ -90,6 +90,8 @@ jobs:
         cd /home/jpo-cvdp/
         echo $REDACTION_PROPERTIES_PATH
         build-wrapper-linux-x86-64 --out-dir /home/jpo-cvdp/bw-output ./build_and_run_unit_tests.sh
+        # run unit tests
+        ./ppm_tests
     - name: Tests
       run: |
         cd /home/jpo-cvdp/

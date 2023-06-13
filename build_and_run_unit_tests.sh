@@ -17,5 +17,3 @@ cd build
 cmake ..
 make
 
-# run unit tests
-./ppm_tests
