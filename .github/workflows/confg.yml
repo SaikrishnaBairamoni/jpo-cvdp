@@ -35,6 +35,7 @@ jobs:
     - name: Install dependencies
       run: |
         mkdir /home/jpo-cvdp/.base-image
+        touch /home/jpo-cvdp/.base-image/init-env.sh
         apt-get -y update && apt-get -y install sudo 
         sudo apt-get -y install build-essential
         sudo apt -y install cmake g++ libprotobuf-dev protobuf-compiler
