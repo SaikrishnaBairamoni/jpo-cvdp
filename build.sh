@@ -21,6 +21,7 @@ COVERAGE_FLAGS="-g --coverage -fprofile-arcs -ftest-coverage"
 
 # make install for these subdirectories
 MAKE_INSTALL_DIRS=(
+    "cv-lib"
     "kafka-test"
     "./"
 )
@@ -31,9 +32,4 @@ for DIR in "${MAKE_INSTALL_DIRS[@]}" "${MAKE_ONLY_DIRS[@]}"; do
     cd /home/jpo-cvdp/"$DIR"/build
     cmake -DCMAKE_CXX_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_C_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_BUILD_TYPE="Debug" ..
     make -j
-    for MAKE_INSTALL_DIR in "${MAKE_INSTALL_DIRS[@]}"; do
-        if [ "$DIR" == "$MAKE_INSTALL_DIR" ]; then
-            make -j install
-        fi
-    done
 done
