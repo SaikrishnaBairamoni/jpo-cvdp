@@ -69,7 +69,6 @@ jobs:
          cmake
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir /__w/jpo-cvdp/jpo-cvdp/bw-output ./build_and_run_unit_tests.sh
-         ./ppm_tests
      - run:
          gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory
          /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/

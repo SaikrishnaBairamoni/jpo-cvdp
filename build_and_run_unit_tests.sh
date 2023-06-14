@@ -17,3 +17,4 @@ cd build
 cmake ..
 make
 
+./ppm_tests
