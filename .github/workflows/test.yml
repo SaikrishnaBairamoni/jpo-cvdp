@@ -32,10 +32,9 @@ jobs:
        run: docker --version && docker-compose version
      - name: install g++
        run: |
-         sudo add-apt-repository ppa:jonathonf/gcc-7.1
-         sudo apt-get update
-         sudo apt-get install gcc-7 g++-7
-         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
+         sudo apt-get -y install build-essential
+         sudo apt -y install cmake g++ libprotobuf-dev protobuf-compiler
+         sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
      - name: install librdkafka
        run: |
          git clone --depth 1 https://github.com/confluentinc/librdkafka.git /home/jpo-cvdp/ext/librdkafka
