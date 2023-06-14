@@ -20,10 +20,9 @@ jobs:
        uses: docker-practice/actions-setup-docker@master
        timeout-minutes: 12
      - run: |
-         set -x  
-         docker version       
+         set -x        
          apt update
-         apt-get -y install sudo 
+         apt-get -y install sudo curl
          sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
          sudo rm /usr/local/bin/docker-compose
          curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
