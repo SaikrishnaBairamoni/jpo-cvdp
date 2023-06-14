@@ -61,7 +61,9 @@ jobs:
          echo $SONAR_DIR/build-wrapper >> $GITHUB_PATH         
      - name: build
        run: 
-         build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output make
+         chmod   755  -R /home/jpo-cvdp/
+         cd /home/jpo-cvdp/
+         build-wrapper-linux-x86-64 --out-dir /home/jpo-cvdp/bw-output make
          clean all
          ./ppm_tests
      - run:
