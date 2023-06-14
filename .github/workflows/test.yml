@@ -35,25 +35,9 @@ jobs:
          sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
          sudo apt-get update -qq
          #sudo apt-get install -qq g++-4.9
-         mkdir ~/Downloads/gcc-4.9-deb && cd ~/Downloads/gcc-4.9-deb
-         wget http://launchpadlibrarian.net/247707088/libmpfr4_3.1.4-1_amd64.deb
-         wget http://launchpadlibrarian.net/253728424/libasan1_4.9.3-13ubuntu2_amd64.deb
-         wget http://launchpadlibrarian.net/253728426/libgcc-4.9-dev_4.9.3-13ubuntu2_amd64.deb
-         wget http://launchpadlibrarian.net/253728314/gcc-4.9-base_4.9.3-13ubuntu2_amd64.deb
-         wget http://launchpadlibrarian.net/253728399/cpp-4.9_4.9.3-13ubuntu2_amd64.deb
-         wget http://launchpadlibrarian.net/253728404/gcc-4.9_4.9.3-13ubuntu2_amd64.deb
-         wget http://launchpadlibrarian.net/253728432/libstdc++-4.9-dev_4.9.3-13ubuntu2_amd64.deb
-         wget http://launchpadlibrarian.net/253728401/g++-4.9_4.9.3-13ubuntu2_amd64.deb
-
-         sudo dpkg -i gcc-4.9-base_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i libmpfr4_3.1.4-1_amd64.deb
-         sudo dpkg -i libasan1_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i libgcc-4.9-dev_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i cpp-4.9_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i gcc-4.9_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i libstdc++-4.9-dev_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i g++-4.9_4.9.3-13ubuntu2_amd64.deb
-         export CXX="g++-4.9"
+         sudo apt-get install gcc-5 g++-5
+         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 1
+         sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 1
      - name: install librdkafka
        run: |
          git clone --depth 1 https://github.com/confluentinc/librdkafka.git /home/jpo-cvdp/ext/librdkafka
