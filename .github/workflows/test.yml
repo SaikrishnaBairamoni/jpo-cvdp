@@ -15,9 +15,13 @@ jobs:
     options: "--user root"
    steps:
      - name: Checkout ${{ github.event.repository.name }}
-       uses: actions/checkout@v3      
-     - name: install deps
-       run: |
+       uses: actions/checkout@v3   
+     - name: install docker     
+       uses: docker-practice/actions-setup-docker@master
+       timeout-minutes: 12
+     - run: |
+         set -x  
+         docker version       
          apt update
          apt-get -y install sudo 
          sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
