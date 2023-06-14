@@ -16,27 +16,27 @@
 # script to run tests, generate test-coverage, and store coverage reports in a place
 # easily accessible to sonar. Test names should follow convention run<pluginName>Tests
 
-cd /home/jpo-cvdp
+cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir test_results
 
-cd /home/jpo-cvdp/cv-lib/build/
+cd  /__w/jpo-cvdp/jpo-cvdp/build/
 ./cv-lib --gtest_output=xml:../../../test_results/
-cd /home/jpo-cvdp/
+cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir coverage
-cd /home/jpo-cvdp/
+cd  /__w/jpo-cvdp/jpo-cvdp/
 gcovr --sonarqube iguration/coverage/coverage.xml -s -f iguration/ -r .
 
-cd /home/jpo-cvdp/kafka_test/build/
+cd  /__w/jpo-cvdp/jpo-cvdp/kafka_test/build/
 ./kafka_test --gtest_output=xml:../../test_results/
-cd /home/jpo-cvdp/kafka_test/
+cd  /__w/jpo-cvdp/jpo-cvdp/kafka_test/
 mkdir coverage
-cd /home/jpo-cvdp/
+cd  /__w/jpo-cvdp/jpo-cvdp/
 gcovr --sonarqube kafka_clients/coverage/coverage.xml -s -f kafka_clients/ -r .
 
-cd /home/jpo-cvdp/build/
+cd  /__w/jpo-cvdp/jpo-cvdp/build/
 ./jpo-cvdp --gtest_output=xml:../../../test_results/
-cd /home/jpo-cvdp/
+cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir coverage
-cd /home/jpo-cvdp/
+cd  /__w/jpo-cvdp/jpo-cvdp/
 gcovr --sonarqube /coverage/coverage.xml -s -f / -r .
 

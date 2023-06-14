@@ -46,7 +46,7 @@ jobs:
          cmake --build _cmake_build --target install
      - name: Install Sonar
        run: |
-         SONAR_DIR=/opt/sonarqube
+         SONAR_DIR=/__w/jpo-cvdp/jpo-cvdp/sonarqube
          mkdir $SONAR_DIR
          curl -o $SONAR_DIR/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
          curl -o $SONAR_DIR/build-wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
