@@ -32,16 +32,10 @@ jobs:
        run: docker --version && docker-compose version
      - name: install g++
        run: |
-         sudo apt -y install g++-5
-         sudo apt -y install gcc-5
-         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 10
-         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
-         sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 10
-         sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 20
-         sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30
-         sudo update-alternatives --set cc /usr/bin/gcc
-         sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30
-         sudo update-alternatives --set c++ /usr/bin/g++
+         sudo add-apt-repository ppa:jonathonf/gcc-7.1
+         sudo apt-get update
+         sudo apt-get install gcc-7 g++-7
+         sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
      - name: install librdkafka
        run: |
          git clone --depth 1 https://github.com/confluentinc/librdkafka.git /home/jpo-cvdp/ext/librdkafka
