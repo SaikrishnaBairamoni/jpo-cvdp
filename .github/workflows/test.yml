@@ -11,6 +11,7 @@ jobs:
       DEBIAN_FRONTEND: noninteractive
       INIT_ENV: "/home/jpo-cvdp/.base-image/init-env.sh"
       SONAR_SCANNER_VERSION: "4.6.2.2472"
+      REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
       TERM: xterm
     options: "--user root"
    steps:
