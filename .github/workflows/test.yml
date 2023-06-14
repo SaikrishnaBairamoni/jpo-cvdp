@@ -42,14 +42,6 @@ jobs:
          cmake -H. -B_cmake_build
          cmake --build _cmake_build
          cmake --build _cmake_build --target install
-         sudo git clone https://github.com/edenhill/librdkafka.git && cd librdkafka && ./configure
-         make
-         sudo make install
-         cd ..
-         sudo mkdir /tmp/build
-         sudo cd /tmp/build
-         sudo cmake $$GITHUB_WORKSPACE
-         sudo export LD_LIBRARY_PATH=/usr/local/lib
      - name: build
        run: 
          build-wrapper-linux-x86-64 --out-dir $$GITHUB_WORKSPACE/bw-output make
