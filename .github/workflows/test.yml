@@ -19,33 +19,19 @@ jobs:
      - name: Install Latest Docker
        run: |
          apt update
-         apt-get -y install sudo curl gnupg lsb-release 
+         apt-get -y install sudo wget curl gnupg lsb-release 
          sudo apt-get -y install software-properties-common
          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
          sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
          sudo apt-get -y update
          sudo apt-get -y install docker-ce
      - name: Check Docker Version
-       run: docker --version
+       run: docker --version && docker-compose version
      - name: install g++
        run: |
-         sudo mkdir gcc-4.9-deb && cd gcc-4.9-deb
-         sudo wget http://launchpadlibrarian.net/247707088/libmpfr4_3.1.4-1_amd64.deb
-         sudo wget http://launchpadlibrarian.net/253728424/libasan1_4.9.3-13ubuntu2_amd64.deb
-         #sudo wget http://launchpadlibrarian.net/253728426/libgcc-4.9-dev_4.9.3-13ubuntu2_amd64.deb
-         sudo wget http://launchpadlibrarian.net/253728314/gcc-4.9-base_4.9.3-13ubuntu2_amd64.deb
-         sudo wget http://launchpadlibrarian.net/253728399/cpp-4.9_4.9.3-13ubuntu2_amd64.deb
-         sudo wget http://launchpadlibrarian.net/253728404/gcc-4.9_4.9.3-13ubuntu2_amd64.deb
-         sudo wget http://launchpadlibrarian.net/253728432/libstdc++-4.9-dev_4.9.3-13ubuntu2_amd64.deb
-         sudo wget http://launchpadlibrarian.net/253728401/g++-4.9_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i gcc-4.9-base_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i libmpfr4_3.1.4-1_amd64.deb
-         sudo dpkg -i libasan1_4.9.3-13ubuntu2_amd64.deb
-         #sudo dpkg -i libgcc-4.9-dev_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i cpp-4.9_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i gcc-4.9_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i libstdc++-4.9-dev_4.9.3-13ubuntu2_amd64.deb
-         sudo dpkg -i g++-4.9_4.9.3-13ubuntu2_amd64.deb
+         sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+         sudo apt-get update -qq
+         sudo apt-get install -qq g++-4.9
          export CXX="g++-4.9"
      - name: install librdkafka
        run: |
