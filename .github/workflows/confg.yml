@@ -1,7 +1,6 @@
 name: BUILD
 on:
-  push:
-  pull_request:
+ workflow_dispatch:
 jobs:
   build:
     defaults:
