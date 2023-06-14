@@ -75,4 +75,18 @@ jobs:
      - run: 
          gcov $$GITHUB_WORKSPACE/src/*.cpp --object-directory
          /tmp/build/CMakeFiles/ppm_tests.dir/src/
-     - run: sonar-scanner
+     - name: Tests
+       run: |
+         cd /__w/jpo-cvdp/jpo-cvdp/
+         ldconfig
+         ./coverage.sh
+     - name: Archive test results
+       uses: actions/upload-artifact@v3
+       with:
+         name: Test Results
+         path: /home/jpo-cvdp/test_results
+     - name: Run SonarScanner
+       uses: usdot-fhwa-stol/actions/sonar-scanner@main
+       with:
+         sonar-token: ${{ secrets.SONAR_TOKEN }}
+         working-dir: /__w/jpo-cvdp/jpo-cvdp/
