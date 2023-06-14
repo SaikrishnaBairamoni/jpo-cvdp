@@ -42,14 +42,28 @@ jobs:
          cmake -H. -B_cmake_build
          cmake --build _cmake_build
          cmake --build _cmake_build --target install
+     - name: Install Sonar
+       run: |
+         SONAR_DIR=/opt/sonarqube
+         mkdir $SONAR_DIR
+         curl -o $SONAR_DIR/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
+         curl -o $SONAR_DIR/build-wrapper.zip https://sonarcloud.io/static/cpp/build-wrapper-linux-x86.zip
+         curl -sL https://deb.nodesource.com/setup_16.x |bash -
+         apt-get install -y nodejs unzip
+         cd $SONAR_DIR
+         for ZIP in *.zip; do
+         unzip "$ZIP" -d .
+         rm "$ZIP"
+         done
+         mv $(ls $SONAR_DIR |grep "sonar-scanner-") $SONAR_DIR/sonar-scanner/
+         mv $(ls $SONAR_DIR |grep "build-wrapper-") $SONAR_DIR/build-wrapper/
+         echo $SONAR_DIR/sonar-scanner/bin >> $GITHUB_PATH
+         echo $SONAR_DIR/build-wrapper >> $GITHUB_PATH         
      - name: build
        run: 
-         build-wrapper-linux-x86-64 --out-dir $$GITHUB_WORKSPACE/bw-output make
+         build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output make
          clean all
          ./ppm_tests
-         cd $$GITHUB_WORKSPACE
-         mkdir coverage
-         cd coverage
      - run:
          gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory
          /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/
