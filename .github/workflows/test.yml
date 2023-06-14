@@ -62,9 +62,9 @@ jobs:
      - name: build
        run: |
          ls -la && pwd 
-         chmod   755  -R /home/jpo-cvdp/jpo-cvdp/
-         cd /home/jpo-cvdp/jpo-cvdp/
-         build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output make clean all
+         chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
+         cd /__w/jpo-cvdp/jpo-cvdp
+         build-wrapper-linux-x86-64 --out-dir /__w/jpo-cvdp/jpo-cvdp/bw-output make clean all
          ./ppm_tests
      - run:
          gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory
