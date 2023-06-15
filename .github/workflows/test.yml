@@ -108,7 +108,6 @@ jobs:
        run: |
          ls -la && pwd 
          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
-         cd /__w/jpo-cvdp/jpo-cvdp
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build_and_run_unit_tests.sh
      - name: Run sonar-scanner
        env:
