@@ -15,26 +15,6 @@
 
 # script to run tests, generate test-coverage, and store coverage reports in a place
 # easily accessible to sonar. Test names should follow convention run<pluginName>Tests
-
-cd  /__w/jpo-cvdp/jpo-cvdp/
-mkdir test_results
-
-cd  /__w/jpo-cvdp/jpo-cvdp/build/
-./ --gtest_output=xml:../../test_results/
-cd  /__w/jpo-cvdp/jpo-cvdp/
-mkdir coverage
-cd  /__w/jpo-cvdp/jpo-cvdp/
-gcovr --sonarqube jpo-cvdp/coverage/coverage.xml -s -f /__w/jpo-cvdp/jpo-cvdp/ -r .
-
-cd  /__w/jpo-cvdp/jpo-cvdp/build/
-./ --gtest_output=xml:../../test_results/
-cd  /__w/jpo-cvdp/jpo-cvdp/
-mkdir coverage
-cd  /__w/jpo-cvdp/jpo-cvdp/
-gcovr --sonarqube kafka_clients/coverage/coverage.xml -s -f /__w/jpo-cvdp/jpo-cvdp/ -r .
-
-cd  /__w/jpo-cvdp/jpo-cvdp/build/
-./ --gtest_output=xml:../../../test_results/
 cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir coverage
 cd  /__w/jpo-cvdp/jpo-cvdp/

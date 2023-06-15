@@ -70,28 +70,30 @@ jobs:
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir /__w/jpo-cvdp/jpo-cvdp/bw-output ./build_and_run_unit_tests.sh
      - run:
-         gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory
-         /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/
-     - run: 
-         gcov $$GITHUB_WORKSPACE/src/*.cpp --object-directory
-         /tmp/build/CMakeFiles/ppm_tests.dir/src/
-     - name: Find gcov
-       shell: bash
-       run: |
-         find "/__w/jpo-cvdp/jpo-cvdp" -name ".gcov"
-         find "/__w/jpo-cvdp/jpo-cvdp" -name ".coverage.xml"  
-     - name: Tests
-       run: |
          cd /__w/jpo-cvdp/jpo-cvdp/
-         ldconfig
-         ./coverage.sh
-     - name: Archive test results
-       uses: actions/upload-artifact@v3
-       with:
-         name: Test Results
-         path: /home/jpo-cvdp/test_results
-     - name: Run SonarScanner
-       uses: usdot-fhwa-stol/actions/sonar-scanner@main
-       with:
-         sonar-token: ${{ secrets.SONAR_TOKEN }}
-         working-dir: /__w/jpo-cvdp/jpo-cvdp/
+         mkdir coverage
+         cd coverage
+         gcov /__w/jpo-cvdp/jpo-cvdp/cv-lib/src/*.cpp --object-directory /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/ 
+         gcov /__w/jpo-cvdp/jpo-cvdp/src/*.cpp --object-directory /tmp/build/CMakeFiles/ppm_tests.dir/src/
+         cd /__w/jpo-cvdp/jpo-cvdp/
+         sonar-scanner
+    #  - name: Tests
+    #    run: |
+    #      cd /__w/jpo-cvdp/jpo-cvdp/
+    #      ldconfig
+    #      ./coverage.sh
+    #  - name: Find gcov
+    #    shell: bash
+    #    run: |
+    #      find "/__w/jpo-cvdp/jpo-cvdp" -name ".gcov"
+    #      find "/__w/jpo-cvdp/jpo-cvdp" -name ".coverage.xml"           
+    #  - name: Archive test results
+    #    uses: actions/upload-artifact@v3
+    #    with:
+    #      name: Test Results
+    #      path: /home/jpo-cvdp/test_results
+    #  - name: Run SonarScanner
+    #    uses: usdot-fhwa-stol/actions/sonar-scanner@main
+    #    with:
+    #      sonar-token: ${{ secrets.SONAR_TOKEN }}
+    #      working-dir: /__w/jpo-cvdp/jpo-cvdp/
