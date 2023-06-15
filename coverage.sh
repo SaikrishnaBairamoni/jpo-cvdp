@@ -20,21 +20,21 @@ cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir test_results
 
 cd  /__w/jpo-cvdp/jpo-cvdp/build/
-./cv-lib/ --gtest_output=xml:../../test_results/
+./ --gtest_output=xml:../../test_results/
 cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir coverage
 cd  /__w/jpo-cvdp/jpo-cvdp/
 gcovr --sonarqube jpo-cvdp/coverage/coverage.xml -s -f iguration/ -r .
 
 cd  /__w/jpo-cvdp/jpo-cvdp/build/
-./kafka_test/ --gtest_output=xml:../../test_results/
+./ --gtest_output=xml:../../test_results/
 cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir coverage
 cd  /__w/jpo-cvdp/jpo-cvdp/
 gcovr --sonarqube kafka_clients/coverage/coverage.xml -s -f kafka_clients/ -r .
 
 cd  /__w/jpo-cvdp/jpo-cvdp/build/
-./jpo-cvdp/ --gtest_output=xml:../../../test_results/
+./ --gtest_output=xml:../../../test_results/
 cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir coverage
 cd  /__w/jpo-cvdp/jpo-cvdp/

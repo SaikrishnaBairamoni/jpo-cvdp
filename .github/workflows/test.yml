@@ -75,6 +75,10 @@ jobs:
      - run: 
          gcov $$GITHUB_WORKSPACE/src/*.cpp --object-directory
          /tmp/build/CMakeFiles/ppm_tests.dir/src/
+     - name: Find jacoco.xml
+       shell: bash
+       run: |
+         find "$GITHUB_WORKSPACE" -name ".gcov"   
      - name: Tests
        run: |
          cd /__w/jpo-cvdp/jpo-cvdp/
