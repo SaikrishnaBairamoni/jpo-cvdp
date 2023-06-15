@@ -24,14 +24,14 @@ cd  /__w/jpo-cvdp/jpo-cvdp/build/
 cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir coverage
 cd  /__w/jpo-cvdp/jpo-cvdp/
-gcovr --sonarqube jpo-cvdp/coverage/coverage.xml -s -f iguration/ -r .
+gcovr --sonarqube jpo-cvdp/coverage/coverage.xml -s -f /__w/jpo-cvdp/jpo-cvdp/ -r .
 
 cd  /__w/jpo-cvdp/jpo-cvdp/build/
 ./ --gtest_output=xml:../../test_results/
 cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir coverage
 cd  /__w/jpo-cvdp/jpo-cvdp/
-gcovr --sonarqube kafka_clients/coverage/coverage.xml -s -f kafka_clients/ -r .
+gcovr --sonarqube kafka_clients/coverage/coverage.xml -s -f /__w/jpo-cvdp/jpo-cvdp/ -r .
 
 cd  /__w/jpo-cvdp/jpo-cvdp/build/
 ./ --gtest_output=xml:../../../test_results/
