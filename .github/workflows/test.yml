@@ -69,12 +69,13 @@ jobs:
          cmake
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir /__w/jpo-cvdp/jpo-cvdp/bw-output ./build_and_run_unit_tests.sh
-     - run:
+     - run: |
          cd /__w/jpo-cvdp/jpo-cvdp/
          mkdir coverage
          cd coverage
          gcov /__w/jpo-cvdp/jpo-cvdp/cv-lib/src/*.cpp --object-directory /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/ 
          gcov /__w/jpo-cvdp/jpo-cvdp/src/*.cpp --object-directory /tmp/build/CMakeFiles/ppm_tests.dir/src/
+     - run: |    
          cd /__w/jpo-cvdp/jpo-cvdp/
          sonar-scanner
     #  - name: Tests
