@@ -12,11 +12,14 @@ jobs:
       INIT_ENV: "/home/jpo-cvdp/.base-image/init-env.sh"
       SONAR_SCANNER_VERSION: "4.6.2.2472"
       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
+      BUILD_WRAPPER_OUT_DIR: "/__w/jpo-cvdp/jpo-cvdp/bw-output"
       TERM: xterm
     options: "--user root"
    steps:
      - name: Checkout ${{ github.event.repository.name }}
        uses: actions/checkout@v3   
+       with:
+        fetch-depth: 0
      - name: Install Latest Docker
        run: |
          apt update
@@ -69,15 +72,15 @@ jobs:
          cmake
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir /__w/jpo-cvdp/jpo-cvdp/bw-output ./build_and_run_unit_tests.sh
-     - run: |
-         cd /__w/jpo-cvdp/jpo-cvdp/
-         mkdir coverage
-         cd coverage
-         gcov /__w/jpo-cvdp/jpo-cvdp/cv-lib/src/*.cpp --object-directory /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/ 
-         gcov /__w/jpo-cvdp/jpo-cvdp/src/*.cpp --object-directory /tmp/build/CMakeFiles/ppm_tests.dir/src/
-     - run: |    
-         cd /__w/jpo-cvdp/jpo-cvdp/
-         sonar-scanner
+    #  - run: |
+    #      cd /__w/jpo-cvdp/jpo-cvdp/
+    #      mkdir coverage
+    #      cd coverage
+    #      gcov /__w/jpo-cvdp/jpo-cvdp/cv-lib/src/*.cpp --object-directory /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/ 
+    #      gcov /__w/jpo-cvdp/jpo-cvdp/src/*.cpp --object-directory /tmp/build/CMakeFiles/ppm_tests.dir/src/
+    #  - run: |    
+    #      cd /__w/jpo-cvdp/jpo-cvdp/
+    #      sonar-scanner
     #  - name: Tests
     #    run: |
     #      cd /__w/jpo-cvdp/jpo-cvdp/
@@ -99,23 +102,19 @@ jobs:
     #      sonar-token: ${{ secrets.SONAR_TOKEN }}
     #      working-dir: /__w/jpo-cvdp/jpo-cvdp/
 
-  build:
-    name: Build and analyze
-    runs-on: ubuntu-latest
-    env:
-      BUILD_WRAPPER_OUT_DIR: /__w/jpo-cvdp/jpo-cvdp/bw-output # Directory where build-wrapper output will be placed
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Install sonar-scanner and build-wrapper
-        uses: SonarSource/sonarcloud-github-c-cpp@v1
-      - name: Run build-wrapper
-        run: |
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} ./build_and_run_unit_tests.sh
-      - name: Run sonar-scanner
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
+     - name: Install sonar-scanner and build-wrapper
+       uses: SonarSource/sonarcloud-github-c-cpp@v1
+     - name: Run build-wrapper
+       run: |
+         ls -la && pwd 
+         chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
+         cd /__w/jpo-cvdp/jpo-cvdp
+         cmake
+         export LD_LIBRARY_PATH=/usr/local/lib
+         build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} ./build_and_run_unit_tests.sh
+     - name: Run sonar-scanner
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+       run: |
+         sonar-scanner --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
