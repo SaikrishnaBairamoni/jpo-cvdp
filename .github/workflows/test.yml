@@ -56,7 +56,11 @@ jobs:
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build_and_run_unit_tests.sh
          ./coverage.sh
-         #sonar-scanner
+         
+     - name: Find .gcov
+       shell: bash
+       run: |
+         find "$GITHUB_WORKSPACE" -name ".gcov"              
      - name: Run sonar-scanner
        env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
