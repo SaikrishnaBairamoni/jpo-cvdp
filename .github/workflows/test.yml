@@ -23,7 +23,7 @@ jobs:
      - name: Install Latest Docker
        run: |
          apt update
-         apt-get -y install sudo wget curl gnupg lsb-release gcovr
+         apt-get -y install sudo wget curl gnupg lsb-release gcovr unzip
          sudo apt-get -y install software-properties-common
          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
          sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
