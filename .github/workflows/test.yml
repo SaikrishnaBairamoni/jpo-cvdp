@@ -72,8 +72,16 @@ jobs:
          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build_and_run_unit_tests.sh
-     - name: Run SonarScanner
-       uses: usdot-fhwa-stol/actions/sonar-scanner@main
-       with:
-         sonar-properties-path: /__w/jpo-cvdp/jpo-cvdp/sonarqube/sonar-scanner.properties
-         sonar-token: ${{ secrets.SONAR_TOKEN }}
+     - name: Run gcov
+       run: |
+         mkdir coverage
+         cd coverage 
+         gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/
+         gcov $GITHUB_WORKSPACE/src/*.cpp --object-directory /tmp/build/CMakeFiles/ppm_tests.dir/src/ 
+         cd $GITHUB_WORKSPACE
+         sonar-scanner
+    #  - name: Run SonarScanner
+    #    uses: usdot-fhwa-stol/actions/sonar-scanner@main
+    #    with:
+    #      sonar-properties-path: /__w/jpo-cvdp/jpo-cvdp/sonarqube/sonar-scanner.properties
+    #      sonar-token: ${{ secrets.SONAR_TOKEN }}
