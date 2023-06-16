@@ -15,8 +15,7 @@
 
 # script to run tests, generate test-coverage, and store coverage reports in a place
 # easily accessible to sonar. Test names should follow convention run<pluginName>Tests
-cd  /__w/jpo-cvdp/jpo-cvdp/
 mkdir coverage
-cd  /__w/jpo-cvdp/jpo-cvdp/
-gcovr --sonarqube /coverage/coverage.xml -s -f / -r .
-
+cd coverage 
+gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/
+gcov $GITHUB_WORKSPACE/src/*.cpp --object-directory /tmp/build/CMakeFiles/ppm_tests.dir/src/ 
