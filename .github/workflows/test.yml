@@ -58,7 +58,8 @@ jobs:
          ./coverage.sh
          #sonar-scanner
      - name: Run sonar-scanner
-       uses: usdot-fhwa-stol/actions/sonar-scanner@main
-       with:
-          sonar-token: ${secrets.SONAR_TOKEN}
-          working-dir: /__w/jpo-cvdp/jpo-cvdp
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+       run: |
+         sonar-scanner 
