@@ -17,5 +17,5 @@
 # easily accessible to sonar. Test names should follow convention run<pluginName>Tests
 mkdir coverage
 cd coverage 
-gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/
-gcov $GITHUB_WORKSPACE/src/*.cpp --object-directory /tmp/build/CMakeFiles/ppm_tests.dir/src/ 
+gcovr --sonarqube coverage.xml -k -r $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/
+gcovr --sonarqube coverage.xml -k -r $GITHUB_WORKSPACE/src/*.cpp --object-directory /tmp/build/CMakeFiles/ppm_tests.dir/src/ 

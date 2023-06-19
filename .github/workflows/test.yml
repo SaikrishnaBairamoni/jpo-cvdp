@@ -59,7 +59,7 @@ jobs:
      - name: Find .gcov
        shell: bash
        run: |
-         find "$GITHUB_WORKSPACE" -name "coverage.xml"    
+         find "$GITHUB_WORKSPACE" -name ".gcda"    
      - run: cd coverage && ls -la          
      - name: Run sonar-scanner
        env:
