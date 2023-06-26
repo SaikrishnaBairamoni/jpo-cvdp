@@ -65,7 +65,8 @@ jobs:
        with:
          name: cvdp-coverage
          path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
-         if-no-files-found: error                    
+         if-no-files-found: error   
+     - run: ls -la && pwd                 
   sonar:
     needs: [cvdp]
     runs-on: ubuntu-latest
@@ -74,6 +75,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+      - run: ls -la && pwd 
       - run: chmod +x -R /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
       - name: Download code coverage results
         uses: actions/download-artifact@v3
