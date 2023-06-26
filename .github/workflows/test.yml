@@ -59,10 +59,46 @@ jobs:
      - name: Find .gcov
        shell: bash
        run: |
-         find "$GITHUB_WORKSPACE" -name "coverage.xml"             
-     - name: Run sonar-scanner
-       env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-       run: |
-         sonar-scanner 
+         find "$GITHUB_WORKSPACE" -name "coverage.xml"  
+     - name: Archive code coverage results
+       uses: actions/upload-artifact@v3
+       with:
+         name: cvdp-coverage
+         path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
+         if-no-files-found: error                    
+  sonar:
+    needs: [cvdp]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ${{ github.event.repository.name }}
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Download code coverage results
+        uses: actions/download-artifact@v3
+        with:
+          name: cvdp-coverage
+          path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
+      - name: Setup SonarScanner
+        uses: warchant/setup-sonar-scanner@v4
+        with:
+          version: 4.8.0.2856
+      - name: Generate sonar properties file
+        run: |
+          cat <<EOF > /tmp/sonar-scanner.properties
+          sonar.host.url=https://sonarcloud.io
+          sonar.modules=cv-lib
+          sonar.projectKey=usdot-jpo-ode-1_jpo-cvdp
+          sonar.organization=usdot-jpo-ode-1
+          sonar.sources=src,cv-lib/src
+          sonar.exclusions=src/ppm.cpp
+          cv-lib.sonar.projectBaseDir=$GITHUB_WORKSPACE/__w/jpo-cvdp/jpo-cvdp/
+          cv-lib.sonar.sources=src
+          cv-lib.sonar.tests=test
+          EOF
+      - name: Run SonarScanner
+        uses: usdot-fhwa-stol/actions/sonar-scanner@main
+        with:
+          sonar-properties-path: /tmp/sonar-scanner.properties
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          working-dir: $GITHUB_WORKSPACE
