@@ -76,7 +76,7 @@ jobs:
         with:
           fetch-depth: 0
       - run: ls -la && pwd 
-      - run: chmod +x -R /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
+      - run: chmod +x -R /home/runner/work/jpo-cvdp/jpo-cvdp
       - name: Download code coverage results
         uses: actions/download-artifact@v3
         with:
