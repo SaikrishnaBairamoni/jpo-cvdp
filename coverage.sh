@@ -19,4 +19,3 @@ mkdir coverage
 cd coverage 
 find /opt/carma -iname "*\.gcda" -o -iname "\.gcna" | xargs gcov
 gcovr --sonarqube coverage.xml -k -r .
-gcovr --sonarqube coverage.xml -k -r .
