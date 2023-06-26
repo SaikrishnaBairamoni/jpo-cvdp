@@ -74,7 +74,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - run: chmod +x -R /__w/
+      - run: chmod +x -R /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
       - name: Download code coverage results
         uses: actions/download-artifact@v3
         with:
