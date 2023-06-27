@@ -17,5 +17,5 @@
 # easily accessible to sonar. Test names should follow convention run<pluginName>Tests
 mkdir coverage
 cd coverage 
-find /opt/carma -iname "*\.gcda" -o -iname "\.gcna" | xargs gcov
-gcovr --sonarqube coverage.xml -k -r .
+find $GITHUB_WORKSPACE -iname "*\.gcda" -o -iname "\.gcna" | xargs gcov
+gcovr --a coverage.xml -k -r .
