@@ -93,7 +93,7 @@ jobs:
           sonar.sources=.
           sonar.exclusions=src/ppm.cpp
           sonar.cfamily.gcov.reportsPath=/__w/jpo-cvdp/jpo-cvdp/coverage/
-          sonar.coverageReportPaths=/home/runner/work/jpo-cvdp/jpo-cvdp/home/runner/work/jpo-cvdp/jpo-cvdp/coverage/
+          sonar.coverageReportPaths=/__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
           EOF
       - name: Run SonarScanner
         uses: usdot-fhwa-stol/actions/sonar-scanner@main
