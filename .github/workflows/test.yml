@@ -96,11 +96,10 @@ jobs:
           sonar.modules=cv-lib
           sonar.projectKey=usdot-jpo-ode-1_jpo-cvdp
           sonar.organization=usdot-jpo-ode-1
-          sonar.sources=src,cv-lib/src
+          sonar.sources=src
           sonar.exclusions=src/ppm.cpp
           cv-lib.sonar.projectBaseDir=home/runner/work/jpo-cvdp/jpo-cvdp/
-          cv-lib.sonar.sources=src
-          cv-lib.sonar.tests=test
+          cv-lib.sonar.sources=cv-lib/src
           EOF
       - name: Run SonarScanner
         uses: usdot-fhwa-stol/actions/sonar-scanner@main
