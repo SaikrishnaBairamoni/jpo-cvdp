@@ -9,7 +9,6 @@ jobs:
     image: ubuntu:jammy-20230126
     env:
       DEBIAN_FRONTEND: noninteractive
-      INIT_ENV: "/home/jpo-cvdp/.base-image/init-env.sh"
       SONAR_SCANNER_VERSION: "4.6.2.2472"
       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
       BUILD_WRAPPER_OUT_DIR: "/__w/jpo-cvdp/jpo-cvdp/bw-output"
@@ -67,7 +66,7 @@ jobs:
          path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
          if-no-files-found: error   
      - run: ls -la && pwd                 
-     
+
   sonar:
     needs: [cvdp]
     runs-on: ubuntu-latest
@@ -84,7 +83,8 @@ jobs:
       - name: Find coverage.xml
         shell: bash
         run: |
-          find "$GITHUB_WORKSPACE" -name "coverage.xml"                 
+          find "$GITHUB_WORKSPACE" -name "coverage.xml"
+      - run: ls -la && pwd  
       - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v4
         with:
@@ -98,7 +98,7 @@ jobs:
           sonar.organization=usdot-jpo-ode-1
           sonar.sources=src,cv-lib/src
           sonar.exclusions=src/ppm.cpp
-          cv-lib.sonar.projectBaseDir=$GITHUB_WORKSPACE/__w/jpo-cvdp/jpo-cvdp/
+          cv-lib.sonar.projectBaseDir=home/runner/work/jpo-cvdp/jpo-cvdp/
           cv-lib.sonar.sources=src
           cv-lib.sonar.tests=test
           EOF
