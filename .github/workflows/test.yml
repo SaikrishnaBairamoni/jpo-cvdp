@@ -98,7 +98,6 @@ jobs:
           sonar.organization=usdot-jpo-ode-1
           sonar.sources=src,cv-lib/src
           sonar.exclusions=src/ppm.cpp
-          sonar.projectBaseDir=/home/runner/work/jpo-cvdp/jpo-cvdp
           sonar.cfamily.gcov.reportsPath=/__w/jpo-cvdp/jpo-cvdp/coverage/
           sonar.coverageReportPaths=/home/runner/work/jpo-cvdp/jpo-cvdp/home/runner/work/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
           EOF
