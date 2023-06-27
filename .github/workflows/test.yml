@@ -67,6 +67,7 @@ jobs:
          path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
          if-no-files-found: error   
      - run: ls -la && pwd                 
+     
   sonar:
     needs: [cvdp]
     runs-on: ubuntu-latest
@@ -74,14 +75,16 @@ jobs:
       - name: Checkout ${{ github.event.repository.name }}
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-      - run: ls -la && pwd 
-      - run: chmod +x -R /home/runner/work/jpo-cvdp/jpo-cvdp
+          fetch-depth: 0   
       - name: Download code coverage results
         uses: actions/download-artifact@v3
         with:
           name: cvdp-coverage
-          path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
+          path: home/runner/work/jpo-cvdp/jpo-cvdp/coverage/coverage.xml     
+      - name: Find coverage.xml
+        shell: bash
+        run: |
+          find "$GITHUB_WORKSPACE" -name "coverage.xml"                 
       - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v4
         with:
@@ -104,4 +107,4 @@ jobs:
         with:
           sonar-properties-path: /tmp/sonar-scanner.properties
           sonar-token: ${{ secrets.SONAR_TOKEN }}
-          working-dir: $GITHUB_WORKSPACE
+          working-dir: $GITHUB_WORKSPACE                
