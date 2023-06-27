@@ -18,4 +18,4 @@
 mkdir coverage
 cd coverage 
 find $GITHUB_WORKSPACE -iname "*\.gcda" -o -iname "\.gcna" | xargs gcov
-gcovr --a coverage.xml -k -r .
+gcovr -H -K coverage.xml -k -r .
