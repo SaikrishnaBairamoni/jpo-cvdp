@@ -55,17 +55,12 @@ jobs:
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build_and_run_unit_tests.sh
          ./coverage.sh        
-     - name: Find .gcov
-       shell: bash
-       run: |
-         find "$GITHUB_WORKSPACE" -name "coverage.xml"  
      - name: Archive code coverage results
        uses: actions/upload-artifact@v3
        with:
          name: cvdp-coverage
          path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
-         if-no-files-found: error   
-     - run: ls -la && pwd                 
+         if-no-files-found: error                   
 
   sonar:
     needs: [cvdp]
@@ -93,10 +88,9 @@ jobs:
         run: |
           cat <<EOF > /tmp/sonar-scanner.properties
           sonar.host.url=https://sonarcloud.io
-          sonar.modules=cv-lib
           sonar.projectKey=usdot-jpo-ode-1_jpo-cvdp
           sonar.organization=usdot-jpo-ode-1
-          sonar.sources=src,cv-lib/src
+          sonar.sources=.
           sonar.exclusions=src/ppm.cpp
           sonar.cfamily.gcov.reportsPath=/__w/jpo-cvdp/jpo-cvdp/coverage/
           sonar.coverageReportPaths=/home/runner/work/jpo-cvdp/jpo-cvdp/home/runner/work/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
