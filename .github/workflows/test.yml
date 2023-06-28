@@ -63,7 +63,7 @@ jobs:
      - name: Find coverage.xml
        shell: bash
        run: |
-         find "$GITHUB_WORKSPACE" -name "coverage.xml"
+         find "$GITHUB_WORKSPACE" -name "sonar-project.properties"
      - run: ls -la && pwd  
      - name: Run SonarScanner
        uses: usdot-fhwa-stol/actions/sonar-scanner@main
