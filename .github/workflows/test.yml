@@ -26,7 +26,6 @@ jobs:
          sudo apt-get -y install software-properties-common
          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
          sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
-         #curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
          sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
          chmod +x /usr/local/bin/docker-compose
          sudo apt-get -y update
@@ -61,7 +60,6 @@ jobs:
          name: cvdp-coverage
          path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
          if-no-files-found: error                   
-
   sonar:
     needs: [cvdp]
     runs-on: ubuntu-latest
@@ -70,11 +68,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0   
+      - run: ls -la && pwd 
       - name: Download code coverage results
         uses: actions/download-artifact@v3
         with:
           name: cvdp-coverage
-          path: home/runner/work/jpo-cvdp/jpo-cvdp/coverage/coverage.xml     
+          path: $GITHUB_WORKSPACE/coverage/coverage.xml     
       - name: Find coverage.xml
         shell: bash
         run: |
