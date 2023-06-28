@@ -18,4 +18,6 @@
 mkdir coverage
 cd coverage 
 find $GITHUB_WORKSPACE -iname "*\.gcda" -o -iname "\.gcna" | xargs gcov
-gcovr -g --sonarqube coverage.xml -k -r .
+#gcovr --sonarqube coverage.xml -k -r .
+gcovr $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /tmp/build/cv-lib/CMakeFiles/CVLib.dir/src/
+gcovr $GITHUB_WORKSPACE/src/*.cpp --object-directory /tmp/build/CMakeFiles/ppm_tests.dir/src/

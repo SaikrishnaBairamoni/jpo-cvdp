@@ -52,7 +52,7 @@ jobs:
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build_and_run_unit_tests.sh
          ./coverage.sh        
-     - run: ls -la && pwd
+     - run: cat /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
      - name: Archive code coverage results
        uses: actions/upload-artifact@v3
        with:
