@@ -64,9 +64,8 @@ jobs:
        shell: bash
        run: |
          find "$GITHUB_WORKSPACE" -name "sonar-project.properties"
-     - run: ls -la && pwd  
-     - name: Run SonarScanner
-       uses: usdot-fhwa-stol/actions/sonar-scanner@main
-       with:
-         sonar-token: ${{ secrets.SONAR_TOKEN }}
-         working-dir: $GITHUB_WORKSPACE
+     - run: ls -la && pwd          
+     - name: SonarQube Scan
+       uses: sonarsource/sonarqube-scan-action@master
+       env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}       
