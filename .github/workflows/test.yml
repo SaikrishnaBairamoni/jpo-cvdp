@@ -57,13 +57,13 @@ jobs:
        uses: actions/upload-artifact@v3
        with:
          name: cvdp-coverage
-         path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
+         path: /coverage/coverage.xml
          if-no-files-found: error                   
      - name: Download code coverage results
        uses: actions/download-artifact@v3
        with:
          name: cvdp-coverage
-         path: $GITHUB_WORKSPACE/coverage/coverage.xml     
+         path: /coverage/coverage.xml     
      - name: Find coverage.xml
        shell: bash
        run: |
@@ -73,5 +73,5 @@ jobs:
        uses: usdot-fhwa-stol/actions/sonar-scanner@main
        with:
          sonar-token: ${{ secrets.SONAR_TOKEN }}
-         working-dir: $GITHUB_WORKSPACE 
+         working-dir: /__w/jpo-cvdp/jpo-cvdp
           
