@@ -10,7 +10,7 @@ jobs:
     image: ubuntu:jammy-20230126
     env:
       DEBIAN_FRONTEND: noninteractive
-      # SONAR_SCANNER_VERSION: "4.6.2.2472"
+      SONAR_SCANNER_VERSION: "4.6.2.2472"
       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
       BUILD_WRAPPER_OUT_DIR: "/__w/jpo-cvdp/jpo-cvdp/bw-output"
       TERM: xterm
@@ -44,8 +44,8 @@ jobs:
          cmake -H. -B_cmake_build
          cmake --build _cmake_build
          cmake --build _cmake_build --target install
-    #  - name: Install sonar-scanner and build-wrapper
-    #    uses: SonarSource/sonarcloud-github-c-cpp@v1
+     - name: Install sonar-scanner and build-wrapper
+       uses: SonarSource/sonarcloud-github-c-cpp@v1
      - name: Build and Generate test coverage
        run: |
          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
