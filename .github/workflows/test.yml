@@ -69,5 +69,5 @@ jobs:
        uses: usdot-fhwa-stol/actions/sonar-scanner@main
        with:
          sonar-token: ${{ secrets.SONAR_TOKEN }}
-         working-dir: /__w/jpo-cvdp/jpo-cvdp/
+         working-dir: /__w/jpo-cvdp/jpo-cvdp/.sonarqube/sonar-project.properties
           
