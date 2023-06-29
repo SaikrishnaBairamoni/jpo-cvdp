@@ -53,9 +53,4 @@ jobs:
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build_and_run_unit_tests.sh
          ./coverage.sh
-         #sonar-scanner
-     - name: Run sonar-scanner
-       uses: usdot-fhwa-stol/actions/sonar-scanner@main
-       with:
-          sonar-token: ${secrets.SONAR_TOKEN}
-          working-dir: /__w/jpo-cvdp/jpo-cvdp/
+         sonar-scanner
