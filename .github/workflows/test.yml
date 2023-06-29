@@ -1,6 +1,6 @@
 name: cvdp
 on: 
- workflow_dispatch:
+ push:
     
 jobs:
   cvdp:
@@ -9,6 +9,7 @@ jobs:
     image: ubuntu:jammy-20230126
     env:
       DEBIAN_FRONTEND: noninteractive
+      INIT_ENV: "/home/jpo-cvdp/.base-image/init-env.sh"
       SONAR_SCANNER_VERSION: "4.6.2.2472"
       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
       BUILD_WRAPPER_OUT_DIR: "/__w/jpo-cvdp/jpo-cvdp/bw-output"
@@ -26,6 +27,7 @@ jobs:
          sudo apt-get -y install software-properties-common
          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
          sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
+         #curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
          sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
          chmod +x /usr/local/bin/docker-compose
          sudo apt-get -y update
@@ -49,8 +51,19 @@ jobs:
        uses: SonarSource/sonarcloud-github-c-cpp@v1
      - name: Build and Generate test coverage
        run: |
+         ls -la && pwd 
          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build_and_run_unit_tests.sh
          ./coverage.sh
-         sonar-scanner
+         #sonar-scanner      
+     - name: Find .gcov
+       shell: bash
+       run: |
+         find "$GITHUB_WORKSPACE" -name ".gcov"              
+     - name: Run sonar-scanner
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+       run: |
+         sonar-scanner 
