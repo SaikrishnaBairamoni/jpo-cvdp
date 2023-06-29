@@ -25,10 +25,6 @@ if [ -z "$REDACTION_PROPERTIES_PATH" ] ; then
     exit 1
 fi
 
-# remove build directory if it exists
-if [ -d build ] ; then 
-    rm -r build
-fi
 
 # make install for these subdirectories
 MAKE_INSTALL_DIRS=(
@@ -45,8 +41,14 @@ MAKE_ONLY_DIRS=(
 
 )
 
+
 for DIR in "${MAKE_INSTALL_DIRS[@]}" "${MAKE_ONLY_DIRS[@]}"; do
-    mkdir "$DIR"/build
+    
+    # remove build directory if it exists
+    if [ -d build ] ; then 
+        rm -r build
+    fi
+    mkdir "$DIR"/build 
     cd "$DIR"/build
     cmake -DCMAKE_CXX_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_C_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_BUILD_TYPE="Debug" ..
     make -j
