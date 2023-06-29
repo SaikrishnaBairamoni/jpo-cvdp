@@ -51,7 +51,7 @@ for DIR in "${MAKE_INSTALL_DIRS[@]}" "${MAKE_ONLY_DIRS[@]}"; do
     make -j
     for MAKE_INSTALL_DIR in "${MAKE_INSTALL_DIRS[@]}"; do
         if [ "$DIR" == "$MAKE_INSTALL_DIR" ]; then
-            make -j install
+            make -j 
         fi
     done
 done 
