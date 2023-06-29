@@ -32,13 +32,16 @@ fi
 
 # make install for these subdirectories
 MAKE_INSTALL_DIRS=(
-    "/__w/jpo-cvdp/jpo-cvdp/"
+    "/__w/jpo-cvdp/jpo-cvdp"
+    "/__w/jpo-cvdp/jpo-cvdp"
+    
 
 )
 
 # only make for these subdirectories
 MAKE_ONLY_DIRS=(
-    "/__w/jpo-cvdp/jpo-cvdp/"
+    "cv-lib"
+    "kafka-test"
 
 )
 
