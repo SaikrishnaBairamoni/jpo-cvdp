@@ -38,8 +38,7 @@ MAKE_INSTALL_DIRS=(
 
 # only make for these subdirectories
 MAKE_ONLY_DIRS=(
-    "cv-lib/"
-    "kafka-test/"
+    "/__w/jpo-cvdp/jpo-cvdp/"
 
 )
 
