@@ -19,15 +19,34 @@ set -e
 
 COVERAGE_FLAGS="-g --coverage -fprofile-arcs -ftest-coverage"
 
+# check if REDACTION_PROPERTIES_PATH is set
+if [ -z "$REDACTION_PROPERTIES_PATH" ] ; then
+    echo "REDACTION_PROPERTIES_PATH is not set"
+    exit 1
+fi
+
+# remove build directory if it exists
+if [ -d build ] ; then 
+    rm -r build
+fi
+
 # make install for these subdirectories
 MAKE_INSTALL_DIRS=(
+    "/__w/jpo-cvdp/jpo-cvdp/"
+
+)
+
+# only make for these subdirectories
+MAKE_ONLY_DIRS=(
     "cv-lib"
-    "kafka_test"
+    "kafka-test"
+    "/__w/jpo-cvdp/jpo-cvdp/"
+
 )
 
 for DIR in "${MAKE_INSTALL_DIRS[@]}" "${MAKE_ONLY_DIRS[@]}"; do
-    mkdir /home/jpo-cvdp/"$DIR"/build
-    cd /home/jpo-cvdp/"$DIR"/build
+    mkdir /__w/jpo-cvdp/jpo-cvdp/"$DIR"/build
+    cd /__w/jpo-cvdp/jpo-cvdp/"$DIR"/build
     cmake -DCMAKE_CXX_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_C_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_BUILD_TYPE="Debug" ..
     make -j
     for MAKE_INSTALL_DIR in "${MAKE_INSTALL_DIRS[@]}"; do
@@ -35,4 +54,6 @@ for DIR in "${MAKE_INSTALL_DIRS[@]}" "${MAKE_ONLY_DIRS[@]}"; do
             make -j install
         fi
     done
-done
+done 
+
+./ppm_tests

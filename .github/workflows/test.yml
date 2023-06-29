@@ -54,13 +54,9 @@ jobs:
          ls -la && pwd 
          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
          export LD_LIBRARY_PATH=/usr/local/lib
-         build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build_and_run_unit_tests.sh
+         build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build.sh
          ./coverage.sh
-         #sonar-scanner      
-     - name: Find .gcov
-       shell: bash
-       run: |
-         find "$GITHUB_WORKSPACE" -name ".gcov"              
+         #sonar-scanner                
      - name: Run sonar-scanner
        env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
