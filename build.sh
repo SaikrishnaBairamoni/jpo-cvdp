@@ -44,7 +44,7 @@ MAKE_ONLY_DIRS=(
 
 for DIR in "${MAKE_INSTALL_DIRS[@]}" "${MAKE_ONLY_DIRS[@]}"; do
     
-    rm -rf $DIR"/build
+    rm -rf "$DIR"/build
     mkdir "$DIR"/build 
     cd "$DIR"/build
     cmake -DCMAKE_CXX_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_C_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_BUILD_TYPE="Debug" ..
