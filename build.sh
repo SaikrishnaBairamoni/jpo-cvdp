@@ -28,19 +28,16 @@ fi
 
 # make install for these subdirectories
 MAKE_INSTALL_DIRS=(
-    "/__w/jpo-cvdp/jpo-cvdp"
-    "/__w/jpo-cvdp/jpo-cvdp"
+    "$GITHUB_WORKSPACE"
     
 
 )
 
 # only make for these subdirectories
 MAKE_ONLY_DIRS=(
-    "cv-lib/"
-    "kafka-test/"
+   "$GITHUB_WORKSPACE"
 
 )
-
 
 for DIR in "${MAKE_INSTALL_DIRS[@]}" "${MAKE_ONLY_DIRS[@]}"; do
     cd "$DIR"/
