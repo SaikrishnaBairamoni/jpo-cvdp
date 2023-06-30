@@ -41,11 +41,11 @@ for DIR in "${MAKE_INSTALL_DIRS[@]}"; do
     cd "$DIR"/build/
     cmake -DCMAKE_CXX_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_C_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_BUILD_TYPE="Debug" ..
     make -j
-    # for MAKE_INSTALL_DIR in "${MAKE_INSTALL_DIRS[@]}"; do
-    #     if [ "$DIR" == "$MAKE_INSTALL_DIR" ]; then
-    #         make -j 
-    #     fi
-    #done
+    for MAKE_INSTALL_DIR in "${MAKE_INSTALL_DIRS[@]}"; do
+        if [ "$DIR" == "$MAKE_INSTALL_DIR" ]; then
+            make -j 
+        fi
+    done
 done 
 
 ./ppm_tests
