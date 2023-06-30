@@ -29,7 +29,6 @@ fi
 # make install for these subdirectories
 MAKE_INSTALL_DIRS=(
     "/__w/jpo-cvdp/jpo-cvdp"
-    "/__w/jpo-cvdp/jpo-cvdp"
     
 
 )
@@ -44,9 +43,9 @@ MAKE_ONLY_DIRS=(
 
 for DIR in "${MAKE_INSTALL_DIRS[@]}" "${MAKE_ONLY_DIRS[@]}"; do
     
-    rm -rf "$DIR"/build
-    mkdir "$DIR"/build 
-    cd "$DIR"/build
+    rm -rf "$DIR"/
+    mkdir "$DIR"/
+    cd "$DIR"/
     cmake -DCMAKE_CXX_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_C_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_BUILD_TYPE="Debug" ..
     make -j
     for MAKE_INSTALL_DIR in "${MAKE_INSTALL_DIRS[@]}"; do
