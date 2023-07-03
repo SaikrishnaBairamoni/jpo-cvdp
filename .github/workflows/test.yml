@@ -57,6 +57,7 @@ jobs:
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build.sh
          ./coverage.sh
          #sonar-scanner        
+     - run: ls -la && pwd         
      - name: Archive code coverage results
        uses: actions/upload-artifact@v3
        with:
