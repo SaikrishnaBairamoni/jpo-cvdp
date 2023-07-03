@@ -101,8 +101,8 @@ jobs:
           sonar.cfamily.gcov.reportsPath=/__w/jpo-cvdp/jpo-cvdp/coverage/
           sonar.coverageReportPaths=/__w/jpo-cvdp/jpo-cvdp/cv-lib/src/coverage/coverage.xml, \
           /__w/jpo-cvdp/jpo-cvdp/src/coverage/coverage.xml
-          sonar.modules=/__w/jpo-cvdp/jpo-cvdp/cv-lib, 
-          \/__w/jpo-cvdp/jpo-cvdp/src
+          sonar.modules=cv-lib, 
+          \src
           cv-lib.sonar.projectBaseDir=/__w/jpo-cvdp/jpo-cvdp/cv-lib
           src.sonar.projectBaseDir=/__w/jpo-cvdp/jpo-cvdp/src
           cv-lib.sonar.sources                =src/,include/
