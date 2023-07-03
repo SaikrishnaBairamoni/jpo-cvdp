@@ -100,15 +100,11 @@ jobs:
           sonar.exclusions=src/ppm.cpp
           sonar.cfamily.gcov.reportsPath=/__w/jpo-cvdp/jpo-cvdp/coverage/
           sonar.coverageReportPaths=/__w/jpo-cvdp/jpo-cvdp/cv-lib/src/coverage/coverage.xml, \
-          /__w/jpo-cvdp/jpo-cvdp/src/coverage/coverage.xml, \
-          /__w/jpo-cvdp/jpo-cvdp/kafka-test/src/coverage/coverage.xml
-          sonar.modules=/__w/jpo-cvdp/jpo-cvdp/kafka-test, 
-          \/__w/jpo-cvdp/jpo-cvdp/cv-lib, 
+          /__w/jpo-cvdp/jpo-cvdp/src/coverage/coverage.xml
+          sonar.modules=/__w/jpo-cvdp/jpo-cvdp/cv-lib, 
           \/__w/jpo-cvdp/jpo-cvdp/src
-          kafka-test.sonar.projectBaseDir=/__w/jpo-cvdp/jpo-cvdp/kafka-test/ 
           cv-lib.sonar.projectBaseDir=/__w/jpo-cvdp/jpo-cvdp/cv-lib
           src.sonar.projectBaseDir=/__w/jpo-cvdp/jpo-cvdp/src
-          kafka-test.sonar.sources                     =src/
           cv-lib.sonar.sources                =src/,include/
           src.sonar.sources                     =src/
           EOF
