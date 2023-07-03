@@ -56,7 +56,7 @@ jobs:
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build.sh
          ./coverage.sh
-         #sonar-scanner                  
+         sonar-scanner                  
      - name: Find coverage.xml
        shell: bash
        run: |
