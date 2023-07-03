@@ -72,12 +72,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - run: chmod   755  -R /home/runner/work/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
       - name: Download code coverage results
         uses: actions/download-artifact@v3
         with:
           name: cvdp-coverage
-          path: /coverage/coverage.xml
+          path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
       - name: Find coverage.xml
         shell: bash
         run: |
