@@ -56,11 +56,7 @@ jobs:
          export LD_LIBRARY_PATH=/usr/local/lib
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build.sh
          ./coverage.sh
-         #sonar-scanner             
-     - name: Find coverage.xml
-       shell: bash
-       run: |
-         find "$GITHUB_WORKSPACE" -name "coverage.xml"       
+         #sonar-scanner                  
      - name: Archive code coverage results
        uses: actions/upload-artifact@v3
        with:
@@ -81,7 +77,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: cvdp-coverage
-          path: $GITHUB_WORKSPACE/coverage/coverage.xml
+          path: /coverage/coverage.xml
       - name: Find coverage.xml
         shell: bash
         run: |
@@ -96,10 +92,21 @@ jobs:
           sonar.host.url=https://sonarcloud.io
           sonar.projectKey=usdot-jpo-ode-1_jpo-cvdp
           sonar.organization=usdot-jpo-ode-1
-          sonar.sources=.
+          #sonar.sources=.
           sonar.exclusions=src/ppm.cpp
-          sonar.cfamily.gcov.reportsPath=/home/runner/work/jpo-cvdp/jpo-cvdp/$GITHUB_WORKSPACE/coverage/
-          sonar.coverageReportPaths=/home/runner/work/jpo-cvdp/jpo-cvdp/$GITHUB_WORKSPACE/coverage/coverage.xml
+          sonar.cfamily.gcov.reportsPath=/__w/jpo-cvdp/jpo-cvdp/coverage/
+          sonar.coverageReportPaths=/__w/jpo-cvdp/jpo-cvdp/cv-lib/src/coverage/coverage.xml, \
+          /__w/jpo-cvdp/jpo-cvdp/src/coverage/coverage.xml, \
+          /__w/jpo-cvdp/jpo-cvdp/kafka-test/src/coverage/coverage.xml
+          sonar.modules=kafka-test, 
+          \cv-lib, 
+          \src
+          kafka-test.sonar.projectBaseDir=/__w/jpo-cvdp/jpo-cvdp/kafka-test
+          cv-lib.sonar.projectBaseDir=/__w/jpo-cvdp/jpo-cvdp/cv-lib
+          src.sonar.projectBaseDir=/__w/jpo-cvdp/jpo-cvdp/src
+          kafka-test.sonar.sources                     =src/
+          cv-lib.sonar.sources                =src/,include/
+          src.sonar.sources                     =src/
           EOF
       - name: Run SonarScanner
         uses: usdot-fhwa-stol/actions/sonar-scanner@main

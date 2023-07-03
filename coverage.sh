@@ -22,3 +22,4 @@ find $GITHUB_WORKSPACE -iname "*\.gcda" -o -iname "\.gcna" | xargs gcov
 gcovr --sonarqube /__w/jpo-cvdp/jpo-cvdp/cv-lib/src/*.cpp -s -f /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/src/ -r .
 gcovr --sonarqube /__w/jpo-cvdp/jpo-cvdp/src/*.cpp -s -f /__w/jpo-cvdp/jpo-cvdp/build/src/ -r .
 gcovr --sonarqube /__w/jpo-cvdp/jpo-cvdp/kafka-test/src/*.cpp -s -f /__w/jpo-cvdp/jpo-cvdp/build/kafka-test/src/ -r .
+
