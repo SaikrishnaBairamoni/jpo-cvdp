@@ -57,12 +57,12 @@ jobs:
          build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build.sh
          ./coverage.sh
          #sonar-scanner        
-     - run: ls -la && pwd         
+     - run: cd /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/src/ && ls -la && pwd      
      - name: Archive code coverage results
        uses: actions/upload-artifact@v3
        with:
          name: cvdp-coverage
-         path: /__w/jpo-cvdp/jpo-cvdp/coverage/coverage.xml
+         path: /__w/jpo-cvdp/jpo-cvdp/coverage/
          if-no-files-found: error                 
          
   sonar:
@@ -83,7 +83,6 @@ jobs:
         shell: bash
         run: |
           find "$GITHUB_WORKSPACE" -name "coverage.xml"
-      - run: ls -la && pwd
       - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v4
         with:
