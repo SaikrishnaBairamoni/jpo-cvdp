@@ -1,116 +1,57 @@
 name: cvdp
 on: 
  push:
-    
+   branches:
+    -develop
+
 jobs:
-  cvdp:
-   runs-on: ubuntu-latest
-   container:
-    image: ubuntu:jammy-20230126
-    env:
-      DEBIAN_FRONTEND: noninteractive
-      INIT_ENV: "/home/jpo-cvdp/.base-image/init-env.sh"
-      SONAR_SCANNER_VERSION: "4.6.2.2472"
-      REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
-      BUILD_WRAPPER_OUT_DIR: "/__w/jpo-cvdp/jpo-cvdp/bw-output"
-      TERM: xterm
-    options: "--user root"
-   steps:
-     - name: Checkout ${{ github.event.repository.name }}
-       uses: actions/checkout@v3   
-       with:
-        fetch-depth: 0
-     - name: Install Latest Docker
-       run: |
-         apt update
-         apt-get -y install sudo wget curl gnupg lsb-release gcovr unzip
-         sudo apt-get -y install software-properties-common
-         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-         sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
-         #curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-         sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-         chmod +x /usr/local/bin/docker-compose
-         sudo apt-get -y update
-         sudo apt-get -y install docker-ce
-     - name: Check Docker Version
-       run: docker --version && docker-compose version
-     - name: install g++
-       run: |
-         sudo apt-get -y install build-essential
-         sudo apt -y install cmake g++ libprotobuf-dev protobuf-compiler
-         sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
-         export CXX="g++"
-     - name: install librdkafka
-       run: |
-         git clone --depth 1 https://github.com/confluentinc/librdkafka.git /home/jpo-cvdp/ext/librdkafka
-         cd /home/jpo-cvdp/ext/librdkafka/
-         cmake -H. -B_cmake_build
-         cmake --build _cmake_build
-         cmake --build _cmake_build --target install
-     - name: Install sonar-scanner and build-wrapper
-       uses: SonarSource/sonarcloud-github-c-cpp@v1
-     - name: Build and Generate test coverage
-       run: |
-         ls -la && pwd 
-         chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
-         export LD_LIBRARY_PATH=/usr/local/lib
-         build-wrapper-linux-x86-64 --out-dir $BUILD_WRAPPER_OUT_DIR ./build.sh
-         ./coverage.sh
-         sonar-scanner                  
-     - name: Find coverage.xml
-       shell: bash
-       run: |
-         find "$GITHUB_WORKSPACE" -name "coverage.xml"       
-     - name: Archive code coverage results
-       uses: actions/upload-artifact@v3
-       with:
-         name: cvdp-coverage
-         path: /__w/jpo-cvdp/jpo-cvdp/coverage/
-         if-no-files-found: error                 
-         
-  sonar:
-    needs: [cvdp]
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout ${{ github.event.repository.name }}
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - run: ls -la && pwd
-      - name: Download code coverage results
-        uses: actions/download-artifact@v3
-        with:
-          name: cvdp-coverage
-          path: $GITHUB_WORKSPACE/coverage/coverage.xml
-      - name: Find coverage.xml
-        shell: bash
+      - name: checkout code
+        uses: actions/checkout@v2
+      - name: set up Cmake
+        uses: actions/setup-cmake@v1
+      - name: Install Deps
         run: |
-          find "$GITHUB_WORKSPACE" -name "coverage.xml"
-      - name: Setup SonarScanner
-        uses: warchant/setup-sonar-scanner@v4
-        with:
-          version: 4.8.0.2856
-      - name: Generate sonar properties file
+          apt update
+          apt-get -y install sudo wget curl gnupg lsb-release gcovr unzip
+          sudo apt-get -y install software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
+          #curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+          sudo apt-get -y update
+          sudo apt-get -y install docker-ce      
+      - name: install librdkafka
         run: |
-          cat <<EOF > /tmp/sonar-scanner.properties
-          sonar.host.url=https://sonarcloud.io
-          sonar.projectKey=usdot-jpo-ode-1_jpo-cvdp
-          sonar.organization=usdot-jpo-ode-1
-          #sonar.sources=.
-          sonar.exclusions=src/ppm.cpp
-          sonar.cfamily.gcov.reportsPath=/__w/jpo-cvdp/jpo-cvdp/coverage/
-          sonar.coverageReportPaths=/__w/jpo-cvdp/jpo-cvdp/cv-lib/src/coverage/coverage.xml, \
-          /__w/jpo-cvdp/jpo-cvdp/src/coverage/coverage.xml
-          sonar.modules=cv-lib, 
-          \src
-          cv-lib.sonar.projectBaseDir=/home/runner/work/jpo-cvdp/jpo-cvdp/cv-lib
-          src.sonar.projectBaseDir=/home/runner/work/jpo-cvdp/jpo-cvdp/src
-          cv-lib.sonar.sources                =src/,include/
-          src.sonar.sources                     =src/
-          EOF
-      - name: Run SonarScanner
-        uses: usdot-fhwa-stol/actions/sonar-scanner@main
+          git clone --depth 1 https://github.com/confluentinc/librdkafka.git /home/jpo-cvdp/ext/librdkafka
+          cd /home/jpo-cvdp/ext/librdkafka/
+          cmake -H. -B_cmake_build
+          cmake --build _cmake_build
+          cmake --build _cmake_build --target install              
+      - name: Build 
+        run: |
+          cd $GITHUB_WORKSPACE
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build .
+      - name: Run Tests
+        run: |
+          cd build
+          ctest --output-on-failure
+          ./ppm_tests
+      - Run: ls -la && pwd
+
+      - name: Set up Sonar scan 
+        uses: SonarSource/sonarqube-scan-action@v1
         with:
-          sonar-properties-path: /tmp/sonar-scanner.properties
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-          working-dir: $GITHUB_WORKSPACE         
+          token: ${{ secrets.SONAR_TOKEN }} 
+          projectBaseDir: ./jpo-cvdp/jpo-cvdp/
+
+      - name: Run sonar scan
+        run: sonar-scanner
+
