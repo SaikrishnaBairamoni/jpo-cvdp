@@ -45,6 +45,7 @@ jobs:
       - name: Build and Test
         run: |
           cd $GITHUB_WORKSPACE
+          export LD_LIBRARY_PATH=/usr/local/lib
           mkdir build
           cd build
           cmake ..
