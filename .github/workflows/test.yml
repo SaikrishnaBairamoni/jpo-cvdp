@@ -89,10 +89,7 @@ jobs:
         with:
           name: cvdp-coverage
           path: $GITHUB_WORKSPACE/coverage/
-      - name: Find Coverage files
-        shell: bash
-        run: |
-          find "$GITHUB_WORKSPACE/coverage/" -name "gov"
+      - run: ls -la && pwd
       - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v4
         with:
