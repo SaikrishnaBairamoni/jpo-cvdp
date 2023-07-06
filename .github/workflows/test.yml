@@ -50,15 +50,13 @@ jobs:
           chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
           export LD_LIBRARY_PATH=/usr/local/lib
           ./build.sh      
-          #ctest --output-on-failure
+          ctest --output-on-failure
       - run: ls -la && pwd
-
       - name: Set up Sonar scan 
         uses: SonarSource/sonarqube-scan-action@v1
         with:
-          token: ${{ secrets.SONAR_TOKEN }} 
-          projectBaseDir: ./jpo-cvdp/jpo-cvdp/
-
+          token: ${secrets.SONAR_TOKEN} 
+          projectBaseDir: /__w/jpo-cvdp/jpo-cvdp
       - name: Run sonar scan
         run: sonar-scanner
 
