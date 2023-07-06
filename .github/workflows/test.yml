@@ -48,13 +48,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           export LD_LIBRARY_PATH=/usr/local/lib
-          mkdir build
-          cd build
-          cmake ..
-          cmake --build .
-          - if: contains([$REDACTION_PROPERTIES_PATH])
-            name:ppm
-            run: ./ppm_tests           
+          ./build.sh      
           #ctest --output-on-failure
       - run: ls -la && pwd
 

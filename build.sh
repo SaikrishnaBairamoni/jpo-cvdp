@@ -17,7 +17,6 @@
 # wrapped by the sonarcloud build-wrapper
 set -e
 
-COVERAGE_FLAGS="-g --coverage -fprofile-arcs -ftest-coverage"
 
 # check if REDACTION_PROPERTIES_PATH is set
 if [ -z "$REDACTION_PROPERTIES_PATH" ] ; then
@@ -25,27 +24,9 @@ if [ -z "$REDACTION_PROPERTIES_PATH" ] ; then
     exit 1
 fi
 
-# remove build directory if it exists
-if [ -d build ] ; then 
-    rm -r build
-fi
-
-# make install for these subdirectories
-MAKE_INSTALL_DIRS=(
-    "/__w/jpo-cvdp/jpo-cvdp"
-
-)
-
-for DIR in "${MAKE_INSTALL_DIRS[@]}"; do
-    mkdir "$DIR"/build/
-    cd "$DIR"/build/
-    cmake -DCMAKE_CXX_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_C_FLAGS="${COVERAGE_FLAGS}" -DCMAKE_BUILD_TYPE="Debug" ..
-    make -j
-    for MAKE_INSTALL_DIR in "${MAKE_INSTALL_DIRS[@]}"; do
-        if [ "$DIR" == "$MAKE_INSTALL_DIR" ]; then
-            make -j 
-        fi
-    done
-done 
+mkdir build
+cd build
+cmake ..
+cmake --build .
 
 ./ppm_tests
