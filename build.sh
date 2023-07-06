@@ -30,3 +30,4 @@ cmake ..
 cmake --build .
 
 ./ppm_tests
+ctest --output-on-failure
