@@ -55,6 +55,11 @@ jobs:
           mkdir coverage
           cd coverage 
           gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/CMakeFiles/CVLib.dir/src/
-          gcov $GITHUB_WORKSPACE/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/CMakeFiles/ppm_tests.dir/src/  
-          cd $GITHUB_WORKSPACE    
-          sonar-scanner
+          gcov $GITHUB_WORKSPACE/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/CMakeFiles/ppm_tests.dir/src/     
+      - name: Run sonar-scanner
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+            cd $GITHUB_WORKSPACE 
+            sonar-scanner
