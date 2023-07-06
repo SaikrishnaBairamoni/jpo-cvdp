@@ -47,6 +47,7 @@ jobs:
       - name: Build and Test
         run: |
           cd $GITHUB_WORKSPACE
+          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
           export LD_LIBRARY_PATH=/usr/local/lib
           ./build.sh      
           #ctest --output-on-failure
