@@ -64,10 +64,10 @@ jobs:
       #   run: |
       #       cd $GITHUB_WORKSPACE 
       #       sonar-scanner           
-      - name: Find coverage.xml
+      - name: Find coverage files
         shell: bash
         run: |
-          find "$GITHUB_WORKSPACE" -name "coverage.xml"       
+          find "$GITHUB_WORKSPACE" -name ".gov"       
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
@@ -89,10 +89,10 @@ jobs:
         with:
           name: cvdp-coverage
           path: $GITHUB_WORKSPACE/coverage/
-      - name: Find coverage.xml
+      - name: Find Coverage files
         shell: bash
         run: |
-          find "$GITHUB_WORKSPACE" -name "coverage.xml"
+          find "$GITHUB_WORKSPACE" -name ".gov"
       - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v4
         with:
@@ -108,8 +108,8 @@ jobs:
           sonar.sources=.
           sonar.exclusions=src/ppm.cpp
           sonar.cfamily.build-wrapper-output=bw-output
-          sonar.cfamily.gcov.reportsPath=/__w/jpo-cvdp/jpo-cvdp/coverage/
-          sonar.sonar.projectBaseDir=/home/runner/work/jpo-cvdp/jpo-cvdp/
+          sonar.cfamily.gcov.reportsPath=/home/runner/work/jpo-cvdp/jpo-cvdp/$GITHUB_WORKSPACE/coverage
+          sonar.sonar.projectBaseDir=/home/runner/work/jpo-cvdp/jpo-cvdp/$GITHUB_WORKSPACE/
           sonar.exclusions=**/*.java
           sonar.coverage.exclusions=**/*.java
           # Set Git as SCM sensor
