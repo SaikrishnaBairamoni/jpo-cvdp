@@ -67,7 +67,7 @@ jobs:
       - name: Find coverage files
         shell: bash
         run: |
-          find "$GITHUB_WORKSPACE/coverage/" -name "gov"       
+          find "/__w/jpo-cvdp/jpo-cvdp/coverage" -name "gov"       
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
@@ -88,7 +88,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: cvdp-coverage
-          path: $GITHUB_WORKSPACE/coverage/
+          path: /__w/jpo-cvdp/jpo-cvdp/coverage
       - run: ls -la && pwd
       - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v4
@@ -104,7 +104,7 @@ jobs:
           sonar.organization=usdot-jpo-ode-1
           sonar.sources=.
           sonar.exclusions=src/ppm.cpp
-          sonar.cfamily.build-wrapper-output=/home/runner/work/jpo-cvdp/jpo-cvdp/$GITHUB_WORKSPACE/bw-output
+          sonar.cfamily.build-wrapper-output=bw-output
           sonar.cfamily.gcov.reportsPath=/home/runner/work/jpo-cvdp/jpo-cvdp/$GITHUB_WORKSPACE/coverage
           sonar.sonar.projectBaseDir=/home/runner/work/jpo-cvdp/jpo-cvdp/$GITHUB_WORKSPACE/
           sonar.exclusions=**/*.java
@@ -120,4 +120,4 @@ jobs:
         with:
           sonar-properties-path: /tmp/sonar-scanner.properties
           sonar-token: ${{ secrets.SONAR_TOKEN }}
-          working-dir: home/runner/work/jpo-cvdp/jpo-cvdp/$GITHUB_WORKSPACE/                    
+          working-dir: home/runner/work/jpo-cvdp/jpo-cvdp/                   
