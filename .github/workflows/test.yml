@@ -22,7 +22,7 @@ jobs:
           sudo apt-get -y update
           sudo apt-get -y install docker-ce      
       - name: set up Cmake
-        uses: actions/setup-cmake@v1    
+        uses: jwlawson/actions-setup-cmake@v1.13    
       - name: install librdkafka
         run: |
           git clone --depth 1 https://github.com/confluentinc/librdkafka.git /home/jpo-cvdp/ext/librdkafka
