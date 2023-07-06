@@ -5,6 +5,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: ubuntu:jammy-20230126
+      options: "--user root"
 
     steps:
       - name: checkout code
