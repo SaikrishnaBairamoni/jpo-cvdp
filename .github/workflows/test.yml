@@ -9,6 +9,7 @@ jobs:
       image: ubuntu:jammy-20230126
       env:
         REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
+        BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
       options: "--user root"
 
     steps:
@@ -49,9 +50,9 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
-          export LD_LIBRARY_PATH=/usr/local/lib
-          build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output make clean all
-          ./build.sh     
+          ./build.sh 
+          export LD_LIBRARY_PATH=/usr/local/lib    
+          build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output make clean all    
           mkdir coverage
           cd coverage 
           gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/CMakeFiles/CVLib.dir/src/
