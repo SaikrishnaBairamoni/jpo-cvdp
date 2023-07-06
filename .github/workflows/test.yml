@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ubuntu:jammy-20230126
+      env:
+        REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
       options: "--user root"
 
     steps:
@@ -50,7 +52,9 @@ jobs:
           cd build
           cmake ..
           cmake --build .
-          ./ppm_tests
+          - if: contains([$REDACTION_PROPERTIES_PATH])
+            name:ppm
+            run: ./ppm_tests           
           #ctest --output-on-failure
       - run: ls -la && pwd
 
