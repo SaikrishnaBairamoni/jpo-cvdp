@@ -50,8 +50,8 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
-          ./build.sh 
-          export LD_LIBRARY_PATH=/usr/local/lib    
+          export LD_LIBRARY_PATH=/usr/local/lib 
+          ./build.sh   
           build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output make clean all    
           mkdir coverage
           cd coverage 
