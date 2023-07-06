@@ -42,7 +42,8 @@ jobs:
           cd build
           ctest --output-on-failure
           ./ppm_tests
-      - Run: ls -la && pwd
+
+      - run: ls -la && pwd
 
       - name: Set up Sonar scan 
         uses: SonarSource/sonarqube-scan-action@v1
