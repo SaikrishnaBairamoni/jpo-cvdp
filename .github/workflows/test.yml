@@ -42,19 +42,15 @@ jobs:
           cmake -H. -B_cmake_build
           cmake --build _cmake_build
           cmake --build _cmake_build --target install              
-      - name: Build 
+      - name: Build and Test
         run: |
           cd $GITHUB_WORKSPACE
           mkdir build
           cd build
           cmake ..
           cmake --build .
-      - name: Run Tests
-        run: |
-          cd build
-          ctest --output-on-failure
           ./ppm_tests
-
+          ctest --output-on-failure
       - run: ls -la && pwd
 
       - name: Set up Sonar scan 
