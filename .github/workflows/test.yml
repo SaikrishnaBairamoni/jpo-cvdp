@@ -67,7 +67,7 @@ jobs:
       - name: Find coverage files
         shell: bash
         run: |
-          find "$GITHUB_WORKSPACE" -name ".gov"       
+          find "/__w/jpo-cvdp/jpo-cvdp/coverage/" -name ".gov"       
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
@@ -92,7 +92,7 @@ jobs:
       - name: Find Coverage files
         shell: bash
         run: |
-          find "$GITHUB_WORKSPACE/coverage/" -name ".gov"
+          find "/home/runner/work/jpo-cvdp/jpo-cvdp/$GITHUB_WORKSPACE/coverage" -name ".gov"
       - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v4
         with:
