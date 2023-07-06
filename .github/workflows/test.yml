@@ -37,7 +37,8 @@ jobs:
           export CXX="g++"          
       - name: install librdkafka
         run: |
-          git clone --depth 1 https://github.com/confluentinc/librdkafka.git 
+          git clone --depth 1 https://github.com/confluentinc/librdkafka.git librdkafka
+          cd librdkafka
           cmake -H. -B_cmake_build
           cmake --build _cmake_build
           cmake --build _cmake_build --target install              
