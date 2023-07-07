@@ -66,11 +66,11 @@ jobs:
      - name: Find coverage files
        shell: bash
        run: |
-         find "/home/runner/work/jpo-cvdp/jpo-cvdp/" -name "build-wrapper-dump.json"      
+         find "$GITHUB_WORKSPACE" -name "build-wrapper-dump.json"      
      - name: Find coverage files
        shell: bash
        run: |
-         find "/home/runner/work/jpo-cvdp/jpo-cvdp/" -name ".gcov"             
+         find "$GITHUB_WORKSPACE" -name ".gcov"             
      - name: Archive code coverage results
        uses: actions/upload-artifact@v3
        with:
