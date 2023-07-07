@@ -89,7 +89,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: cvdp-coverage
-          path: /__w/jpo-cvdp/jpo-cvdp/coverage
+          path: /home/runner/work/jpo-cvdp/jpo-cvdp/coverage
       - run: ls -la && pwd
       - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v4
