@@ -11,10 +11,6 @@ jobs:
        REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
        BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
      options: "--user root"
-   defaults:
-    run:
-     working-directory: $GITHUB_WORKSPACE 
-
    steps:
      - name: checkout code
        uses: actions/checkout@v2
@@ -72,7 +68,12 @@ jobs:
        with:
          name: jpo-cvdp
          path: /__w/jpo-cvdp/jpo-cvdp/coverage/
-         if-no-files-found: error                         
+         if-no-files-found: error              
+     - name: Archive buildwrapper output
+       uses: actions/upload-artifact@v3   
+       with: 
+         name: jpo-cvdp
+         path: $GITHUB_WORKSPACE/bw-output  
   sonar:
     needs: [jpo-cvdp]
     runs-on: ubuntu-latest
@@ -87,6 +88,11 @@ jobs:
         with:
           name: jpo-cvdp
           path: /home/runner/work/jpo-cvdp/jpo-cvdp/coverage
+      - name: Download BW results
+        uses: actions/download-artifact@v3
+        with:
+          name: jpo-cvdp
+          path: /home/runner/work/jpo-cvdp/jpo-cvdp/bw-output     
       - name: Find coverage files
         shell: bash
         run: |
