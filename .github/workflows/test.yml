@@ -62,11 +62,7 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       #   run: |
       #       cd $GITHUB_WORKSPACE 
-      #       sonar-scanner              
-     - name: Find coverage files
-       shell: bash
-       run: |
-         find "$GITHUB_WORKSPACE" -name "build-wrapper-dump.json"               
+      #       sonar-scanner                        
      - name: Archive code coverage results
        uses: actions/upload-artifact@v3
        with:
@@ -77,59 +73,35 @@ jobs:
        uses: actions/upload-artifact@v3   
        with: 
          name: jpo-cvdp
-         path: /home/runner/work/jpo-cvdp/jpo-cvdp/bw-output  
-  sonar:
-    needs: [jpo-cvdp]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout ${{ github.event.repository.name }}
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - run: chmod 755 -R /home/runner/work/jpo-cvdp/jpo-cvdp
-      - name: Download code coverage results
-        uses: actions/download-artifact@v3
-        with:
-          name: jpo-cvdp
-          path: /home/runner/work/jpo-cvdp/jpo-cvdp/coverage
-      - name: Download BW results
-        uses: actions/download-artifact@v3
-        with:
-          name: jpo-cvdp
-          path: /home/runner/work/jpo-cvdp/jpo-cvdp/bw-output     
-      - run: ls -la && pwd
-      - name: Find coverage files
-        shell: bash
-        run: |
-          find "/home/runner/work/jpo-cvdp/jpo-cvdp/coverage" -name ".gcov"          
-      - name: Setup SonarScanner
-        uses: warchant/setup-sonar-scanner@v4
-        with:
-          version: 4.8.0.2856
-      - name: Generate sonar properties file
-        run: |
-          cat <<EOF > /tmp/sonar-scanner.properties
-          sonar.host.url=https://sonarcloud.io
-          sonar.projectName=jpo-cvdp
-          sonar.projectVersion=1.0
-          sonar.projectKey=usdot-jpo-ode-1_jpo-cvdp
-          sonar.organization=usdot-jpo-ode-1
-          sonar.sources=.
-          sonar.exclusions=src/ppm.cpp
-          sonar.cfamily.build-wrapper-output=bw-output
-          sonar.cfamily.gcov.reportsPath=/home/runner/work/jpo-cvdp/jpo-cvdp/$GITHUB_WORKSPACE/coverage
-          sonar.sonar.projectBaseDir=/home/runner/work/jpo-cvdp/jpo-cvdp
-          sonar.exclusions=**/*.java
-          sonar.coverage.exclusions=**/*.java
-          # Set Git as SCM sensor
-          sonar.scm.disabled=true
-          #sonar.scm.enabled=false
-          sonar.scm.provider=git
-          sonar.sourceEncoding=UTF-8
-          EOF
-      - name: Run SonarScanner
-        uses: usdot-fhwa-stol/actions/sonar-scanner@main
-        with:
-          sonar-properties-path: /tmp/sonar-scanner.properties
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-          working-dir: $GITHUB_WORKSPACE                   
+         path: /home/runner/work/jpo-cvdp/jpo-cvdp/bw-output       
+     - name: Setup SonarScanner
+       uses: warchant/setup-sonar-scanner@v4
+       with:
+         version: 4.8.0.2856
+     - name: Generate sonar properties file
+       run: |
+         cat <<EOF > /tmp/sonar-scanner.properties
+         sonar.host.url=https://sonarcloud.io
+         sonar.projectName=jpo-cvdp
+         sonar.projectVersion=1.0
+         sonar.projectKey=usdot-jpo-ode-1_jpo-cvdp
+         sonar.organization=usdot-jpo-ode-1
+         sonar.sources=.
+         sonar.exclusions=src/ppm.cpp
+         sonar.cfamily.build-wrapper-output=bw-output
+         sonar.cfamily.gcov.reportsPath=/__w/jpo-cvdp/jpo-cvdp/coverage/
+         sonar.sonar.projectBaseDir=/home/runner/work/jpo-cvdp/jpo-cvdp/
+         sonar.exclusions=**/*.java
+         sonar.coverage.exclusions=**/*.java
+         # Set Git as SCM sensor
+         sonar.scm.disabled=true
+         #sonar.scm.enabled=false
+         sonar.scm.provider=git
+         sonar.sourceEncoding=UTF-8
+         EOF
+     - name: Run SonarScanner
+       uses: usdot-fhwa-stol/actions/sonar-scanner@main
+       with:
+         sonar-properties-path: /tmp/sonar-scanner.properties
+         sonar-token: ${{ secrets.SONAR_TOKEN }}
+         working-dir: $GITHUB_WORKSPACE                   
