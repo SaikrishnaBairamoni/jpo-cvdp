@@ -67,7 +67,7 @@ jobs:
       - name: Find coverage files
         shell: bash
         run: |
-          find "/__w/jpo-cvdp/jpo-cvdp/coverage" -name "gov"       
+          find "/__w/jpo-cvdp/jpo-cvdp/" -name "build-wrapper-dump.json"       
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
@@ -91,6 +91,10 @@ jobs:
           name: cvdp-coverage
           path: /home/runner/work/jpo-cvdp/jpo-cvdp/coverage
       - run: ls -la && pwd
+      - name: Find coverage files
+        shell: bash
+        run: |
+          find "/__w/jpo-cvdp/jpo-cvdp/" -name "build-wrapper-dump.json"          
       - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v4
         with:
