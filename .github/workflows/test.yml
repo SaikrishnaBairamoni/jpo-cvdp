@@ -63,11 +63,7 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       #   run: |
       #       cd $GITHUB_WORKSPACE 
-      #       sonar-scanner           
-     - name: Find coverage files
-       shell: bash
-       run: |
-         find "/__w/jpo-cvdp/jpo-cvdp/" -name "build-wrapper-dump.json"       
+      #       sonar-scanner               
      - name: Archive code coverage results
        uses: actions/upload-artifact@v3
        with:
@@ -92,7 +88,7 @@ jobs:
       - name: Find coverage files
         shell: bash
         run: |
-          find "$GITHUB_WORKSPACE" -name "build-wrapper-dump.json"          
+          find "/__w/jpo-cvdp/jpo-cvdp/" -name "build-wrapper-dump.json"          
       - name: Setup SonarScanner
         uses: warchant/setup-sonar-scanner@v4
         with:
