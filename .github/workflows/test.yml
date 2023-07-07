@@ -69,8 +69,7 @@ jobs:
        with:
          name: jpo-cvdp
          path: /__w/jpo-cvdp/jpo-cvdp/coverage/
-         if-no-files-found: error                 
-         
+         if-no-files-found: error                         
   sonar:
     needs: [jpo-cvdp]
     runs-on: ubuntu-latest
@@ -119,4 +118,4 @@ jobs:
         with:
           sonar-properties-path: /tmp/sonar-scanner.properties
           sonar-token: ${{ secrets.SONAR_TOKEN }}
-          working-dir: home/runner/work/jpo-cvdp/jpo-cvdp/                   
+          working-dir: $GITHUB_WORKSPACE                   
