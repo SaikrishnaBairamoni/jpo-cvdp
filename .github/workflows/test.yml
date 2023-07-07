@@ -11,6 +11,9 @@ jobs:
        REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
        BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
      options: "--user root"
+   defaults:
+    run:
+     working-directory: $GITHUB_WORKSPACE 
 
    steps:
      - name: checkout code
