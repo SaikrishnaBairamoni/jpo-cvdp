@@ -50,6 +50,7 @@ jobs:
         uses: SonarSource/sonarcloud-github-c-cpp@v1
       - name: Build and Generate test coverage
         run: |
+          sudo -s
           cd $GITHUB_WORKSPACE
           git clone https://github.com/u-boot/u-boot.git
           chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
