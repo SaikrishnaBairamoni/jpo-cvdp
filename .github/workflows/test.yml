@@ -5,11 +5,9 @@ on:
 jobs:
   jpo-cvdp:
    runs-on: ubuntu-latest
-   container:
-     image: ubuntu:jammy-20230126
-     env:
-       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
-       BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
+   env:
+     REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
+     BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
      options: "--user root"
    steps:
      - name: checkout code
