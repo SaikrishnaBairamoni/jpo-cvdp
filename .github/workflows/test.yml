@@ -44,11 +44,11 @@ jobs:
          cmake --build _cmake_build
          cmake --build _cmake_build --target install  
      - name: Install sonar-scanner and build-wrapper
-       uses: SonarSource/sonarcloud-github-c-cpp@v1                      
+       uses: SonarSource/sonarcloud-github-c-cpp@v1
      - name: Build and Generate test coverage
        run: |
          cd $GITHUB_WORKSPACE
-         cat /usr/include/asm/signal.h && cat /user/include/x86_64-linux-gnu/asm/signal.h && pwd
+         git clone https://github.com/u-boot/u-boot.git
          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
          export LD_LIBRARY_PATH=/usr/local/lib 
          build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
