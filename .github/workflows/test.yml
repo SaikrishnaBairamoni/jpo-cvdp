@@ -20,6 +20,7 @@ jobs:
       - name: Install Deps
         run: |
           sudo apt-get update
+          sudo -s
           sudo apt-get -y install sudo wget curl gnupg lsb-release gcovr unzip
           sudo apt-get -y install software-properties-common
           curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -41,7 +42,8 @@ jobs:
           export CXX="g++"          
       - name: install librdkafka
         run: |
-          git clone --depth 1 https://github.com/confluentinc/librdkafka.git librdkafka
+
+          sudo -s git clone --depth 1 https://github.com/confluentinc/librdkafka.git librdkafka
           cd librdkafka
           cmake -H. -B_cmake_build
           cmake --build _cmake_build
