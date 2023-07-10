@@ -13,12 +13,12 @@ jobs:
     env:
       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
       BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
+      options: "--user root"
     steps:
       - name: checkout code
         uses: actions/checkout@v2
       - name: Install Deps
         run: |
-          apt-get -y install sudo 
           sudo -s
           apt update
           sudo apt-get -y install wget curl gnupg lsb-release gcovr unzip
