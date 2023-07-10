@@ -44,7 +44,8 @@ jobs:
           sudo -s git clone --depth 1 https://github.com/confluentinc/librdkafka.git librdkafka
           cd librdkafka 
           sudo cmake -H. -B_cmake_build
-          sudo cmake --build _cmake_build && cmake --build _cmake_build --target install  
+          sudo cmake --build _cmake_build 
+          sudo cmake --build _cmake_build --target install  
       - name: Install sonar-scanner and build-wrapper
         uses: SonarSource/sonarcloud-github-c-cpp@v1
       - name: Build and Generate test coverage
