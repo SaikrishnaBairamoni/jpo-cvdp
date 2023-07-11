@@ -24,10 +24,6 @@ if [ -z "$REDACTION_PROPERTIES_PATH" ] ; then
     exit 1
 fi
 
-sudo mkdir build
-sudo cd build
-sudo cmake ..
-sudo cmake --build .
 
 sudo ./ppm_tests
 sudo test --output-on-failure
