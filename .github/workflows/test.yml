@@ -7,7 +7,7 @@ on:
   pull_request:
 jobs:
   jpo-cvdp:
-    runs-on: ubuntu-latest
+    runs-on:  ubuntu-2004:202201-02
     env:
       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
       BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
