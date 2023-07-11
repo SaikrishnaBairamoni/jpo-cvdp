@@ -44,7 +44,10 @@ jobs:
          cmake --build _cmake_build --target install  
      - name: Install sonar-scanner and build-wrapper
        uses: SonarSource/sonarcloud-github-c-cpp@v1  # This Action Installs sonar cloud and build wrapper to run sonar scan analysis                 
-     - name: Build and Generate test coverage
+     - uses: Vampire/setup-wsl@v2
+       with:
+          distribution: Ubuntu-18.04
+     - name: Build and Generate test coverage     
        run: |
          cd $GITHUB_WORKSPACE
          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
