@@ -7,7 +7,7 @@ on:
   pull_request:
 jobs:
   jpo-cvdp:
-    runs-on: ubuntu-2004:202201-02
+    runs-on: ubuntu-latest
     env:
       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
       BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
@@ -49,9 +49,9 @@ jobs:
       - name: Build and Generate test coverage
         run: |
           cd $GITHUB_WORKSPACE
-          sudo chmod -R a+X $GITHUB_WORKSPACE
+          sudo chmod -R a+X /home/runner/work/jpo-cvdp/jpo-cvdp/
           export LD_LIBRARY_PATH=/usr/local/lib 
-          build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh        
+          sudo build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh        
           mkdir coverage
           cd coverage 
           gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/CMakeFiles/CVLib.dir/src/
