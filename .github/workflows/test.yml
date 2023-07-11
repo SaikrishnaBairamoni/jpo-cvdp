@@ -50,11 +50,10 @@ jobs:
         uses: SonarSource/sonarcloud-github-c-cpp@v1
       - name: Build and Generate test coverage
         run: |
-          sudo -s
           cd $GITHUB_WORKSPACE
           git clone https://github.com/u-boot/u-boot.git
           ls -la && pwd
-          sudo chmod   755  -R /home/runner/work/jpo-cvdp/jpo-cvdp
+          chmod +x 755 -R /home/runner/work/jpo-cvdp/jpo-cvdp
           sudo export LD_LIBRARY_PATH=/usr/local/lib 
           sudo build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
           sudo mkdir coverage
