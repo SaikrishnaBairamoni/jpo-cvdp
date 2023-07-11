@@ -55,7 +55,7 @@ jobs:
           ls -la && pwd
           chmod +x /home/runner/work/jpo-cvdp/jpo-cvdp
           export LD_LIBRARY_PATH=/usr/local/lib 
-          chmod +x build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
+          chmod u+x build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
           mkdir coverage
           cd coverage 
           gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/CMakeFiles/CVLib.dir/src/
