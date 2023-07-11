@@ -45,7 +45,7 @@ jobs:
        uses: SonarSource/sonarcloud-github-c-cpp@v1  # This Action Installs sonar cloud and build wrapper to run sonar scan analysis                 
      - uses: Vampire/setup-wsl@v2
        with:
-          distribution: Ubuntu-18.04
+          distribution: Ubuntu-latest
      - name: Build and Generate test coverage     
        run: |
          cd $GITHUB_WORKSPACE
