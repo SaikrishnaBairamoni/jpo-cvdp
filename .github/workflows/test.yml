@@ -5,11 +5,9 @@ on:
 jobs:
   jpo-cvdp:
    runs-on: ubuntu-latest
-   container:
-     image: cimg/base:2023.07
-     env:
-       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"  # This env vairable is used to run ppm test
-       BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output" # This env variable is needed to run SonarSource/sonarcloud-github-c-cpp@v1
+   env:
+     REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"  # This env vairable is used to run ppm test
+     BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output" # This env variable is needed to run SonarSource/sonarcloud-github-c-cpp@v1
      options: "--user root"
    steps:
      - name: checkout code
