@@ -54,7 +54,7 @@ jobs:
           cd $GITHUB_WORKSPACE
           git clone https://github.com/u-boot/u-boot.git
           ls -la && pwd
-          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
+          chmod   755  -R /home/runner/work/jpo-cvdp/jpo-cvdp
           export LD_LIBRARY_PATH=/usr/local/lib 
           build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
           mkdir coverage
