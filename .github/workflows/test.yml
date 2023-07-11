@@ -10,7 +10,7 @@ on:
 jobs:
   jpo-cvdp:
     runs-on: ubuntu-latest
-    container: ubuntu:20.04_stable
+    container: ubuntu:20.04
     env:
       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
       BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
