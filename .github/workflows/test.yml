@@ -8,6 +8,7 @@ on:
 jobs:
   jpo-cvdp:
     runs-on: ubuntu-latest
+    container: cimg/base:2023.07
     env:
       REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"
       BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output"
