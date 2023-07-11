@@ -55,11 +55,11 @@ jobs:
           ls -la && pwd
           chmod +x /home/runner/work/jpo-cvdp/jpo-cvdp
           export LD_LIBRARY_PATH=/usr/local/lib 
-          sudo build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
-          sudo mkdir coverage
+          build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
+          mkdir coverage
           cd coverage 
-          sudo gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/CMakeFiles/CVLib.dir/src/
-          sudo gcov $GITHUB_WORKSPACE/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/CMakeFiles/ppm_tests.dir/src/                  
+          gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/CMakeFiles/CVLib.dir/src/
+          gcov $GITHUB_WORKSPACE/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/CMakeFiles/ppm_tests.dir/src/                  
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
