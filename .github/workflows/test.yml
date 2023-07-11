@@ -21,7 +21,7 @@ jobs:
          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
          sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
          sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-         chmod +x /usr/local/bin/docker-compose
+         sudo chmod +x /usr/local/bin/docker-compose
          sudo apt-get -y update
          sudo apt-get -y install docker-ce   
      - name: set up Cmake
@@ -36,11 +36,11 @@ jobs:
          export CXX="g++"          
      - name: install librdkafka # This is to install librdkafka package
        run: |
-         git clone --depth 1 https://github.com/confluentinc/librdkafka.git librdkafka
+         sudo git clone --depth 1 https://github.com/confluentinc/librdkafka.git librdkafka
          cd librdkafka
-         cmake -H. -B_cmake_build
-         cmake --build _cmake_build
-         cmake --build _cmake_build --target install  
+         sudo cmake -H. -B_cmake_build
+         sudo cmake --build _cmake_build
+         sudo cmake --build _cmake_build --target install  
      - name: Install sonar-scanner and build-wrapper
        uses: SonarSource/sonarcloud-github-c-cpp@v1  # This Action Installs sonar cloud and build wrapper to run sonar scan analysis                 
      - uses: Vampire/setup-wsl@v2
