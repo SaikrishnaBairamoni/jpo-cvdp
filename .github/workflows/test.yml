@@ -1,12 +1,10 @@
 name: jpo-cvdp
-
 on:
   push:
     branches-ignore:
       - "master"
       - "release/*"
   pull_request:
-
 jobs:
   jpo-cvdp:
     runs-on: ubuntu-latest
@@ -19,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Deps
         run: |
-          apt-get update
+          sudo apt-get update
           sudo apt-get -y install sudo wget curl gnupg lsb-release gcovr unzip
           sudo apt-get -y install software-properties-common
           curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -53,8 +51,9 @@ jobs:
           cd $GITHUB_WORKSPACE
           git clone https://github.com/u-boot/u-boot.git
           ls -la && pwd
-          chmod +x $GITHUB_WORKSPACE
-          chmod u+x export LD_LIBRARY_PATH=/usr/local/lib 
+          chmod +x /home/runner/work/jpo-cvdp/jpo-cvdp
+          chmod +x export LD_LIBRARY_PATH=/usr/local/lib 
+          chmod u+x build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
           chmod u+x build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
           mkdir coverage
           cd coverage 
@@ -101,4 +100,4 @@ jobs:
         with:
           sonar-properties-path: /tmp/sonar-scanner.properties
           sonar-token: ${{ secrets.SONAR_TOKEN }}
-          working-dir: $GITHUB_WORKSPACE              
+          working-dir: $GITHUB_WORKSPACE   
