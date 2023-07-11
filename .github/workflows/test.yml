@@ -15,7 +15,6 @@ jobs:
      - name: Install Deps
        run: |
          sudo apt-get update
-         apt-get -y install sudo
          sudo -s
          sudo apt-get -y install wget curl gnupg lsb-release gcovr unzip
          sudo apt-get -y install software-properties-common
