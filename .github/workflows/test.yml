@@ -46,7 +46,7 @@ jobs:
      - name: Build and Generate test coverage     
        run: |
          cd $GITHUB_WORKSPACE
-         chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
+         chmod   755  -R home/runner/work/jpo-cvdp/jpo-cvdp/
          export LD_LIBRARY_PATH=/usr/local/lib 
          build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
          mkdir coverage
