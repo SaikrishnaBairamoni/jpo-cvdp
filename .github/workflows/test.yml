@@ -54,14 +54,13 @@ jobs:
           cd $GITHUB_WORKSPACE
           git clone https://github.com/u-boot/u-boot.git
           ls -la && pwd
-          chmod   755  -R /home/runner/work/jpo-cvdp/jpo-cvdp
-          export LD_LIBRARY_PATH=/usr/local/lib 
-          build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
-          mkdir coverage
+          sudo chmod   755  -R /home/runner/work/jpo-cvdp/jpo-cvdp
+          sudo export LD_LIBRARY_PATH=/usr/local/lib 
+          sudo build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
+          sudo mkdir coverage
           cd coverage 
-          gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/CMakeFiles/CVLib.dir/src/
-          gcov $GITHUB_WORKSPACE/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/CMakeFiles/ppm_tests.dir/src/ 
-          ls -la && pwd                      
+          sudo gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/CMakeFiles/CVLib.dir/src/
+          sudo gcov $GITHUB_WORKSPACE/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/CMakeFiles/ppm_tests.dir/src/                  
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
