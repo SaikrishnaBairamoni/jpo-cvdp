@@ -41,14 +41,19 @@ jobs:
           sudo cmake --build _cmake_build
           sudo cmake --build _cmake_build --target install  
       - name: Install sonar-scanner and build-wrapper
-        uses: SonarSource/sonarcloud-github-c-cpp@v1  # This Action Installs sonar cloud and build wrapper to run sonar scan analysis                     
+        uses: SonarSource/sonarcloud-github-c-cpp@v1  # This Action Installs sonar cloud and build wrapper to run sonar scan analysis      
+      - name: Find and Replace signal.h
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "/usr/include/signal.h"
+          replace: "/usr/include/asm-generic/signal.h"
+          regex: false               
       - name: Build and Generate test coverage     
         run: |
           sudo su - root
           sudo chmod o+w /root
           sudo chmod 755 -R /home/runner/work/jpo-cvdp/jpo-cvdp/
           cd /home/runner/work/jpo-cvdp/jpo-cvdp
-          cat /usr/include/signal.h 
           export LD_LIBRARY_PATH=/usr/local/lib 
           export REDACTION_PROPERTIES_PATH=/home/runner/work/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt
           export BUILD_WRAPPER_OUT_DIR=$GITHUB_WORKSPACE/bw-output
