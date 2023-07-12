@@ -45,6 +45,7 @@ jobs:
       - name: Build and Generate test coverage     
         run: |
           ls -la && pwd
+          sudo su - root
           chmod 755 -R /home/runner/work/jpo-cvdp/jpo-cvdp/
           cd /home/runner/work/jpo-cvdp/jpo-cvdp
           export LD_LIBRARY_PATH=/usr/local/lib 
