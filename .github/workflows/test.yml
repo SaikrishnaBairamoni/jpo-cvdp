@@ -50,7 +50,6 @@ jobs:
          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
          cat /usr/include/signal.h
          cp /usr/include/asm-generic/signal.h /usr/include/signal.h
-         cat /usr/include/x86_64-linux-gnu/asm/signal.h
          export LD_LIBRARY_PATH=/usr/local/lib 
          build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh     
          mkdir coverage
