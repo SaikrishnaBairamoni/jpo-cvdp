@@ -373,9 +373,7 @@
 
 #define INTERNAL_CATCH_STRINGIFY2( expr ) #expr
 #define INTERNAL_CATCH_STRINGIFY( expr ) INTERNAL_CATCH_STRINGIFY2( expr )
-#ifndef SIGSTKSZ
 #define SIGSTKSZ 8192
-#endif
 #include <sstream>
 #include <algorithm>
 
