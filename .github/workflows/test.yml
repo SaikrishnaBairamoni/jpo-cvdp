@@ -47,7 +47,7 @@ jobs:
           sudo chmod 755 -R /home/runner/work/jpo-cvdp/jpo-cvdp/
           cd /home/runner/work/jpo-cvdp/jpo-cvdp
           sudo cp /usr/include/asm-generic/signal.h /usr/include/signal.h
-          cat /usr/include/x86_64-linux-gnu/asm/signal.h
+          sudo cp /usr/include/x86_64-linux-gnu/asm/signal.h /usr/include/x86_64-linux-gnu/signal.h
           export LD_LIBRARY_PATH=/usr/local/lib 
           export REDACTION_PROPERTIES_PATH=/home/runner/work/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt
           export BUILD_WRAPPER_OUT_DIR=$GITHUB_WORKSPACE/bw-output
