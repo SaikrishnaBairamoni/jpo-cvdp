@@ -2,9 +2,7 @@ name: Jpo-cvdp
 
 on:
   push:
-# env:
-#   REDACTION_PROPERTIES_PATH: "/home/runner/work/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"  # This env vairable is used to run ppm test
-#   BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output" # This env variable is needed to run SonarSource/sonarcloud-github-c-cpp@v1  
+
 jobs:
   jpo_cvdp:
     runs-on: ubuntu-latest
@@ -54,7 +52,7 @@ jobs:
           sudo chmod o+w /root
           sudo chmod 755 -R /home/runner/work/jpo-cvdp/jpo-cvdp/
           cd /home/runner/work/jpo-cvdp/jpo-cvdp
-          cp /usr/include/asm-generic/signal.h /usr/include/signal.h
+          sudo cp /usr/include/asm-generic/signal.h /usr/include/signal.h
           export LD_LIBRARY_PATH=/usr/local/lib 
           export REDACTION_PROPERTIES_PATH=/home/runner/work/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt
           export BUILD_WRAPPER_OUT_DIR=$GITHUB_WORKSPACE/bw-output
