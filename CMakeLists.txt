@@ -31,7 +31,6 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/rapidjson")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/spdlog")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/general-redaction")
 include_directories("/usr/local/include")
-include_directories("/usr/include/asm-generic")
 
 
 if (${APPLE})
