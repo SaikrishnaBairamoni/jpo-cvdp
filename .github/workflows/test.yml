@@ -40,12 +40,6 @@ jobs:
           sudo cmake --build _cmake_build --target install  
       - name: Install sonar-scanner and build-wrapper
         uses: SonarSource/sonarcloud-github-c-cpp@v1  # This Action Installs sonar cloud and build wrapper to run sonar scan analysis      
-      - name: Find and Replace signal.h
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "/usr/include/signal.h"
-          replace: "/usr/include/asm-generic/signal.h"
-          regex: false               
       - name: Build and Generate test coverage     
         run: |
           sudo su - root
