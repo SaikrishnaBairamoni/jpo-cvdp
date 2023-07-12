@@ -44,11 +44,12 @@ jobs:
         uses: SonarSource/sonarcloud-github-c-cpp@v1  # This Action Installs sonar cloud and build wrapper to run sonar scan analysis                     
       - name: Build and Generate test coverage     
         run: |
+          chmod 755 -R /__w/jpo-cvdp/jpo-cvdp/
           cd $GITHUB_WORKSPACE
           export LD_LIBRARY_PATH=/usr/local/lib 
           export REDACTION_PROPERTIES_PATH=/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt
           export BUILD_WRAPPER_OUT_DIR=$GITHUB_WORKSPACE/bw-output
-          build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh    
+          chmod u+x build-wrapper-linux-x86-64 --out-dir $GITHUB_WORKSPACE/bw-output ./build.sh    
           mkdir coverage
           cd coverage 
           gcov $GITHUB_WORKSPACE/cv-lib/src/*.cpp --object-directory /__w/jpo-cvdp/jpo-cvdp/build/cv-lib/CMakeFiles/CVLib.dir/src/
