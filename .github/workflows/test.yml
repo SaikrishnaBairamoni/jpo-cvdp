@@ -45,8 +45,8 @@ jobs:
       - name: Build and Generate test coverage     
         run: |
           sudo su - root
-          chmod o+w /root
-          chmod 755 -R /home/runner/work/jpo-cvdp/jpo-cvdp/
+          sudo chmod o+w /root
+          sudo chmod 755 -R /home/runner/work/jpo-cvdp/jpo-cvdp/
           cd /home/runner/work/jpo-cvdp/jpo-cvdp
           export LD_LIBRARY_PATH=/usr/local/lib 
           export REDACTION_PROPERTIES_PATH=/home/runner/work/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt
