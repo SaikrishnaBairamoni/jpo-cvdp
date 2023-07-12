@@ -15,8 +15,6 @@
 
 # script executes all kafka_clients and scheduling service build and coverage steps so that they can be singularly
 # wrapped by the sonarcloud build-wrapper
-set -e
-
 
 # check if REDACTION_PROPERTIES_PATH is set
 if [ -z "$REDACTION_PROPERTIES_PATH" ] ; then
