@@ -42,12 +42,11 @@ jobs:
         uses: SonarSource/sonarcloud-github-c-cpp@v1  # This Action Installs sonar cloud and build wrapper to run sonar scan analysis      
       - name: Build and Generate test coverage     
         run: |
-          shell: bash
           sudo su - root
           sudo chmod o+w /root
           sudo chmod 755 -R /home/runner/work/jpo-cvdp/jpo-cvdp/
           cd /home/runner/work/jpo-cvdp/jpo-cvdp
-          #sudo cp /usr/include/asm-generic/signal.h /usr/include/signal.h
+          sudo cp /usr/include/asm-generic/signal.h /usr/include/
           #sudo cp /usr/include/x86_64-linux-gnu/asm/signal.h /usr/include/x86_64-linux-gnu/signal.h
           export LD_LIBRARY_PATH=/usr/local/lib 
           export REDACTION_PROPERTIES_PATH=/home/runner/work/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt
