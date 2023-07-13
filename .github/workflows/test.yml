@@ -4,9 +4,9 @@ on:
 
 jobs:
   jpo-cvdp:
-   runs-on: amazonlinux:latest
+   runs-on: amazonlinux:2023.1.20230705.0
    container:
-     image: ubuntu-22.04
+     image: ubuntu:latest
      env:
        REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"  # This env vairable is used to run ppm test
        BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output" # This env variable is needed to run SonarSource/sonarcloud-github-c-cpp@v1
