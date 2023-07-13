@@ -3,7 +3,7 @@ on:
   push:
 jobs:
   jpo_cvdp:
-    runs-on: amazonlinux:latest
+    runs-on: alpine:latest
     steps:
       - name: checkout code
         uses: actions/checkout@v3 # This action to checkout the code
