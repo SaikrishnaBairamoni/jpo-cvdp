@@ -18,6 +18,7 @@ jobs:
        if: runner.os == 'Linux'
        run: |
          apt update
+         apt-get -y install sudo
          sudo apt-get update
          sudo apt-get -y install libssh-dev #package ssh dependency
          while read -r cmd
