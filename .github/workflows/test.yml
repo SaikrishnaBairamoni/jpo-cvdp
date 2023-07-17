@@ -4,9 +4,9 @@ on:
 
 jobs:
   jpo-cvdp:
-   runs-on: alpine:latest
+   runs-on: ubuntu:latest
    container:
-     image: ubuntu:latest
+     image: ubuntu:jammy-20230126
      env:
        REDACTION_PROPERTIES_PATH: "/__w/jpo-cvdp/jpo-cvdp/config/fieldsToRedact.txt"  # This env vairable is used to run ppm test
        BUILD_WRAPPER_OUT_DIR: "$GITHUB_WORKSPACE/bw-output" # This env variable is needed to run SonarSource/sonarcloud-github-c-cpp@v1
@@ -47,7 +47,8 @@ jobs:
          sudo apt-get -y install build-essential
          sudo apt -y install cmake g++ libprotobuf-dev protobuf-compiler
          sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
-         export CXX="g++"          
+         export CXX="g++"   
+         sudo apt install -y gcc-12 g++-12       
      - name: install librdkafka # This is to install librdkafka package
        run: |
          git clone --depth 1 https://github.com/confluentinc/librdkafka.git librdkafka

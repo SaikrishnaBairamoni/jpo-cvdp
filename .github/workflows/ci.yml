@@ -3,7 +3,7 @@ on:
   push:
 jobs:
   jpo_cvdp:
-    runs-on: alpine:latest
+    runs-on: ubuntu:latest
     steps:
       - name: checkout code
         uses: actions/checkout@v3 # This action to checkout the code
@@ -29,6 +29,7 @@ jobs:
           sudo apt -y install cmake g++ libprotobuf-dev protobuf-compiler
           sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
           export CXX="g++"
+          sudo apt install -y gcc-12 g++-12
       - name: install librdkafka # This is to install librdkafka package
         run: |
           sudo git clone --depth 1 https://github.com/confluentinc/librdkafka.git librdkafka
