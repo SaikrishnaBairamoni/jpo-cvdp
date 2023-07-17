@@ -30,7 +30,7 @@ jobs:
           sudo apt -y install apt-transport-https ca-certificates curl software-properties-common
           export CXX="g++"
           sudo apt install -y gcc-12 g++-12
-          sudo apt install libpng-dev libgraphicsmagick1-dev libcairo2-dev
+          sudo apt -y install libpng-dev libgraphicsmagick1-dev libcairo2-dev
       - name: install librdkafka # This is to install librdkafka package
         run: |
           sudo git clone --depth 1 https://github.com/confluentinc/librdkafka.git librdkafka
