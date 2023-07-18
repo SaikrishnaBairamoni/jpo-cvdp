@@ -42,6 +42,8 @@ jobs:
         uses: SonarSource/sonarcloud-github-c-cpp@v1  # This Action Installs sonar cloud and build wrapper to run sonar scan analysis
       - name: Build and Generate test coverage
         run: |
+          cd tools/m4/patches
+          wget https://raw.githubusercontent.com/keyfour/openwrt/2722d51c5cf6a296b8ecf7ae09e46690403a6c3d/tools/m4/patches/011-fix-sigstksz.patch
           sudo su - root
           sudo chmod o+w /root
           sudo chmod 755 -R /home/runner/work/jpo-cvdp/jpo-cvdp/
