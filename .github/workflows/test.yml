@@ -45,14 +45,8 @@ jobs:
          cmake --build _cmake_build --target install  
      - name: Install sonar-scanner and build-wrapper
        uses: SonarSource/sonarcloud-github-c-cpp@v1  # This Action Installs sonar cloud and build wrapper to run sonar scan analysis  
-     - name: Set up Docker Buildx
-       uses: docker/setup-buildx-action@v2
-     - name: Build
-       uses: docker/build-push-action@v3       
      - name: Build and Generate test coverage
        run: |
-         #cd tools/m4/patches
-         #wget https://raw.githubusercontent.com/keyfour/openwrt/2722d51c5cf6a296b8ecf7ae09e46690403a6c3d/tools/m4/patches/011-fix-sigstksz.patch
          cd $GITHUB_WORKSPACE
          chmod   755  -R /__w/jpo-cvdp/jpo-cvdp
          cat /usr/include/asm-generic/signal.h

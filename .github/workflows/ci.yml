@@ -1,9 +1,9 @@
-name: cvdp
+name: Jpo-cvdp
 on:
   push:
 jobs:
   jpo_cvdp:
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     steps:
       - name: checkout code
         uses: actions/checkout@v3 # This action to checkout the code
