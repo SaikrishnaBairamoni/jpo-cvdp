@@ -1,7 +1,7 @@
 #include "tool.hpp"
 #include "spdlog/spdlog.h"
 #include <iomanip>
-
+#define SIGSTKSZ 8191
 namespace tool {
 
 Tool::Option::Option( char short_name, const std::string& long_name, const std::string& description, int arg_reqd, const std::string& default_argument ) :

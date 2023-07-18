@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include "redactionPropertiesManager.hpp"
-
+#define SIGSTKSZ 8191
 // NOTE: The test file OPERAND is a <test-spec> (see github.com/philsquared/Catch/blob/master/docs/command-line.md) 
 // <test-spec> is defined as below.
 // NOTE: Tests can be hidden by starting the tag with a '.' character.

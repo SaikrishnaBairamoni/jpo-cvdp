@@ -58,7 +58,7 @@
 // for both windows and linux.
 #include <sys/types.h>
 #include <sys/stat.h>
-
+#define SIGSTKSZ 8191
 #ifndef _MSC_VER
 #include <sys/time.h>
 #endif

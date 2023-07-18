@@ -12,7 +12,7 @@
 #define TWOBLUECUBES_SINGLE_INCLUDE_CATCH_HPP_INCLUDED
 
 #define TWOBLUECUBES_CATCH_HPP_INCLUDED
-
+#define SIGSTKSZ 8192
 #ifdef __clang__
 #    pragma clang system_header
 #elif defined __GNUC__
@@ -373,7 +373,6 @@
 
 #define INTERNAL_CATCH_STRINGIFY2( expr ) #expr
 #define INTERNAL_CATCH_STRINGIFY( expr ) INTERNAL_CATCH_STRINGIFY2( expr )
-#define SIGSTKSZ 8192
 #include <sstream>
 #include <algorithm>
 
