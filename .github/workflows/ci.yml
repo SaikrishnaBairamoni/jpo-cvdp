@@ -1,4 +1,4 @@
-name: Jpo-cvdp
+name: cvdp
 on:
   push:
 jobs:
