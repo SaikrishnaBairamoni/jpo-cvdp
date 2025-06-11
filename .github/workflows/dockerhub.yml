@@ -3,6 +3,7 @@ name: DockerHub Build and Push
 on:
   push:
     branches: [ master, develop, release/*, feature/update_docker_workflows ]
+  workflow_dispatch:
 
 jobs:
   publish:
